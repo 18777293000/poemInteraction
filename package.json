@@ -1,0 +1,81 @@
+{
+  "name": "poem-interaction",
+  "version": "1.0.0",
+  "description": "诗歌互动平台，包括飞花令、诗词接龙、诗词展示",
+  "homepage": "https://sclc.tjut.edu.cn/",
+  "author": "yangming <120953990@qq.com>",
+  "license": "MIT",
+  "main": "dist/main/index.js",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/ym18777293000"
+  },
+  "bugs": {
+    "url": "https://gitee.com/ym18777293000"
+  },
+  "scripts": {
+    "dev": "vite",
+    "dev:debug": "vite -d",
+    "dev:debug:force": "vite -d --force",
+    "build": "npm run build:pre && electron-builder --config=buildAssets/builder/config.js",
+    "build:pre": "npm run format:fix && vue-tsc --noEmit && vite build",
+    "build:all": "npm run build:pre && electron-builder --config=buildAssets/builder/config.js -wml",
+    "build:dir": "npm run build:pre && electron-builder --config=buildAssets/builder/config.js --dir",
+    "build:mac": "npm run build:pre && CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --config=buildAssets/builder/config.js --mac",
+    "build:linux": "npm run build:pre && electron-builder --config=buildAssets/builder/config.js --linux",
+    "build:win": "npm run build:pre && electron-builder --config=buildAssets/builder/config.js --windows",
+    "lint": "eslint --ext .js,.ts,.vue -f ./node_modules/eslint-friendly-formatter src",
+    "lint:fix": "eslint --ext .js,.ts,.vue -f ./node_modules/eslint-friendly-formatter --fix src",
+    "format": "prettier .",
+    "format:fix": "prettier . --write",
+    "test": "npm run build:pre && playwright test",
+    "test:linux": "npm run build:pre && xvfb-run --auto-servernum --server-args='-screen 0, 1280x960x24' -- playwright test"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@mdi/font": "^7.4.47",
+    "pinia": "^2.1.7",
+    "vue": "^3.4.27",
+    "vue-i18n": "^9.13.1",
+    "vue-router": "^4.3.2",
+    "vuetify": "^3.6.7"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.44.1",
+    "@typescript-eslint/eslint-plugin": "^7.10.0",
+    "@typescript-eslint/parser": "^7.10.0",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "@vitejs/plugin-vue-jsx": "^3.1.0",
+    "dotenv": "^16.4.5",
+    "electron": "^30.0.8",
+    "electron-builder": "^24.13.3",
+    "electron-extension-installer": "^1.2.0",
+    "eslint": "8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "16.6.2",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-vue": "^9.26.0",
+    "playwright": "^1.44.1",
+    "prettier": "^3.2.5",
+    "tree-kill": "^1.2.2",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.11",
+    "vite-plugin-electron": "^0.28.7",
+    "vite-plugin-electron-renderer": "^0.14.5",
+    "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-vuetify": "^2.0.3",
+    "vue-eslint-parser": "^9.4.2",
+    "vue-tsc": "^2.0.19"
+  },
+  "overrides": {
+    "vite-plugin-electron": {
+      "electron": "$electron"
+    }
+  }
+}
