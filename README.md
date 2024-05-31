@@ -13,7 +13,23 @@ npm镜像源配置推荐
 npm config set registry https://repo.huaweicloud.com/repository/npm/
 ```
 
-## 特点
+# 启动
+
+```bash
+yarn/npm run dev 本地启动
+
+yarn/npm run build:dir 构建未压缩可执行文件
+
+yarn/npm run build:all 构建跨平台+压缩+未压缩多个可执行文件
+```
+
+# 当前库版本
+
+- node 21.0.0
+- npm 10.2.0
+- yarn 1.22.22
+
+# 特点
 
 - ⚡️ Vue3
 - ⚡️ Vite
@@ -21,6 +37,6 @@ npm config set registry https://repo.huaweicloud.com/repository/npm/
 - ⚡️ VuetifyUI组件库
 - ⚡️ Electron
 
-## 许可证
+# 许可证
 
 版权所有 © 2024-2025 [yangming] <[120953990@qq.com](mailto:120953990@qq.com)>，根据 MIT 许可证发布。
