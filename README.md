@@ -1,10 +1,14 @@
 # 安装说明
+
 推荐使用`yarn`安装，关于`electron`地址配置推荐
+
 ```bash
 yarn config set electron_mirror https://mirrors.huaweicloud.com/electron/
 npm config set electron_mirror https://mirrors.huaweicloud.com/electron/
 ```
+
 npm镜像源配置推荐
+
 ```bash
 npm config set registry https://repo.huaweicloud.com/repository/npm/
 ```

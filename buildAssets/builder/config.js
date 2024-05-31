@@ -2,8 +2,8 @@
 const dotenv = require('dotenv')
 
 const baseConfig = {
-  productName: 'Vutron',
-  appId: 'com.vutron.vutron',
+  productName: 'PoemInteract',
+  appId: 'com.jut.sclct',
   asar: true,
   extends: null,
   compression: 'maximum',
@@ -69,7 +69,7 @@ const baseConfig = {
     oneClick: true
   },
   linux: {
-    executableName: 'vutron',
+    executableName: 'PoemInteract',
     icon: 'buildAssets/icons',
     category: 'Utility',
     target: [

@@ -1,27 +1,17 @@
 <template>
   <v-container>
-    <v-row no-gutters align="center" class="text-center" style=";">
+    <v-row no-gutters align="center" class="text-center" style="">
       <v-col cols="10">
         <v-card title="诗词风采" variant="tonal">
-          <v-table
-            height="300px"
-            fixed-header
-          >
+          <v-table height="300px" fixed-header>
             <thead>
               <tr>
-                <th class="text-left">
-                  Name
-                </th>
-                <th class="text-left">
-                  Calories
-                </th>
+                <th class="text-left"> Name </th>
+                <th class="text-left"> Calories </th>
               </tr>
             </thead>
             <tbody>
-              <tr
-                v-for="item in desserts"
-                :key="item.name"
-              >
+              <tr v-for="item in desserts" :key="item.name">
                 <td>{{ item.name }}</td>
                 <td>{{ item.calories }}</td>
               </tr>
@@ -33,34 +23,21 @@
         </v-card>
       </v-col>
       <v-col cols="2" class="my-4">
-        <v-file-input
-          accept="image/*"
-          label="上传文件"
-        ></v-file-input>
+        <v-file-input accept="image/*" label="上传文件"></v-file-input>
       </v-col>
     </v-row>
     <v-row no-gutters align="center" class="text-center" style="margin-top: 1rem">
       <v-col cols="10" style="">
         <v-card title="飞花令" variant="tonal">
-          <v-table
-            height="300px"
-            fixed-header
-          >
+          <v-table height="300px" fixed-header>
             <thead>
               <tr>
-                <th class="text-left">
-                  Name
-                </th>
-                <th class="text-left">
-                  Calories
-                </th>
+                <th class="text-left"> Name </th>
+                <th class="text-left"> Calories </th>
               </tr>
             </thead>
             <tbody>
-              <tr
-                v-for="item in desserts"
-                :key="item.name"
-              >
+              <tr v-for="item in desserts" :key="item.name">
                 <td>{{ item.name }}</td>
                 <td>{{ item.calories }}</td>
               </tr>
@@ -72,10 +49,7 @@
         </v-card>
       </v-col>
       <v-col cols="2" class="my-4">
-        <v-file-input
-          accept="image/*"
-          label="上传文件"
-        ></v-file-input>
+        <v-file-input accept="image/*" label="上传文件"></v-file-input>
       </v-col>
     </v-row>
   </v-container>
@@ -83,21 +57,19 @@
 
 <script setup lang="ts">
 const desserts = [
-                  { 
-                    name: 'Frozen Yogurt',
-                    calories: 159,
-                  },
-                  {
-                    name: 'Ice cream sandwich',
-                    calories: 237,
-                  },
-                  {
-                    name: 'Eclair',
-                    calories: 262,
-                  }
-                ];
+  {
+    name: 'Frozen Yogurt',
+    calories: 159
+  },
+  {
+    name: 'Ice cream sandwich',
+    calories: 237
+  },
+  {
+    name: 'Eclair',
+    calories: 262
+  }
+]
 </script>
 
-<style>
-
-</style>
+<style></style>

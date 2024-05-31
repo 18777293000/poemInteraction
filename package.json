@@ -9,10 +9,10 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/ym18777293000"
+    "url": "https://github.com/18777293000/poemInteraction0"
   },
   "bugs": {
-    "url": "https://gitee.com/ym18777293000"
+    "url": "https://github.com/18777293000/poemInteraction"
   },
   "scripts": {
     "dev": "vite",
