@@ -16,6 +16,6 @@ declare global {
 
 const app = createApp(App)
 
-app.use(vuetify).use(i18n).use(router).use(createPinia())
+app.use(vuetify).use(createPinia()).use(i18n).use(router)
 
 app.mount('#app')

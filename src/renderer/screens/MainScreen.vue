@@ -5,6 +5,7 @@ import { openExternal, openFile } from '@/renderer/utils'
 import { useCounterStore } from '@/renderer/store/counter'
 import { storeToRefs } from 'pinia'
 import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const { locale, availableLocales } = useI18n()
 const { counterIncrease, setName } = useCounterStore()
@@ -15,6 +16,7 @@ const appVersion = ref('Unknown')
 const selectedFile = ref('')
 const slides = ['First', 'Second']
 const colors = ['indigo', 'warning', 'pink darken-2', 'red lighten-1', 'deep-purple accent-4']
+const router = useRouter()
 
 onMounted((): void => {
   languages.value = availableLocales
@@ -32,6 +34,15 @@ const getApplicationVersionFromMainProcess = (): void => {
 const handleClick = (value: string): void => {
   console.log(111)
   console.log('name', name.value)
+  switch (value) {
+    case "shici":
+      router.push("/shici")
+      break;
+  
+    case "feihua":
+      router.push("/feihua")
+      break;
+  }
 }
 </script>
 
@@ -73,7 +84,7 @@ const handleClick = (value: string): void => {
                   size="large"
                   @click="handleClick('shici')"
                 >
-                  进入游戏
+                  开始体验
                 </v-btn>
               </div>
             </v-sheet>
@@ -96,7 +107,7 @@ const handleClick = (value: string): void => {
                   color="#177cb0"
                   @click="handleClick('feihua')"
                 >
-                  进入游戏
+                  开始体验
                 </v-btn>
               </div>
             </v-sheet>
@@ -118,13 +129,31 @@ const handleClick = (value: string): void => {
   overflow: hidden; /* 防止背景图片移动时溢出 */
 
   /* 定义动画 */
-  animation: movingBackgroundComplex 20s linear infinite;
+  animation: movingBackgroundComplex 30s infinite alternate ease-in-out;
 }
 
 /* 如果你想要更复杂的移动效果，例如斜向移动，你可以添加更多的关键帧 */
 /* 例如，以下是一个从左上角到右下角的动画，然后再从右下角到左上角的动画 */
 @keyframes movingBackgroundComplex {
-  0%,
+    0% {
+      background-position: center;
+    }
+    25% {
+      background-position: left 30% bottom 30%;
+    }
+    50% {
+      background-position: right 30% top 30%;
+    }
+    75% {
+      background-position: left 30% top 30%;
+    }
+    100% {
+      background-position: right 30% bottom 30%;
+    }
+}
+
+
+    /* 0%,
   100% {
     background-position: -20px -20px;
   }
@@ -135,7 +164,7 @@ const handleClick = (value: string): void => {
     background-position: -20px 40px;
   }
   75% {
-    background-position: 40px -20px; /* 向左上角移动 */
-  }
-}
+    background-position: 40px -20px; 
+  } */
+
 </style>

@@ -1,7 +1,8 @@
 import { MainScreen } from '@/renderer/screens'
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { useCounterStore } from '@/renderer/store/counter'
 
-export default createRouter({
+const router =  createRouter({
   history: createWebHashHistory(),
   routes: [
     {
@@ -19,6 +20,20 @@ export default createRouter({
       }
     },
     {
+      path: '/shici',
+      component: () => import('@/renderer/screens/game/ShiciScreen.vue'),
+      meta: {
+        titleKey: 'Shici Screen'
+      }
+    },
+    {
+      path: '/feihua',
+      component: () => import('@/renderer/screens/game/FeihuaScreen.vue'),
+      meta: {
+        titleKey: 'Feihua Screen'
+      }
+    },
+    {
       path: '/error',
       component: () => import('@/renderer/screens/ErrorScreen.vue'),
       meta: {
@@ -31,3 +46,13 @@ export default createRouter({
     }
   ]
 })
+
+router.beforeEach((to, next) => {
+  console.log("to", to);
+  console.log("next", next);
+  const useCounter = useCounterStore();
+  console.log("counter", useCounter.getName);
+
+})
+
+export default router;
