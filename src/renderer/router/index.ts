@@ -2,7 +2,7 @@ import { MainScreen } from '@/renderer/screens'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { useCounterStore } from '@/renderer/store/counter'
 
-const router =  createRouter({
+const router = createRouter({
   history: createWebHashHistory(),
   routes: [
     {
@@ -34,6 +34,13 @@ const router =  createRouter({
       }
     },
     {
+      path: '/jielong',
+      component: () => import('@/renderer/screens/game/JielongScreen.vue'),
+      meta: {
+        titleKey: 'Jielong Screen'
+      }
+    },
+    {
       path: '/error',
       component: () => import('@/renderer/screens/ErrorScreen.vue'),
       meta: {
@@ -48,11 +55,10 @@ const router =  createRouter({
 })
 
 router.beforeEach((to, next) => {
-  console.log("to", to);
-  console.log("next", next);
-  const useCounter = useCounterStore();
-  console.log("counter", useCounter.getName);
-
+  const paths = ['/feihua', '/shici', '/jielong'];
+  if (paths.includes(to.path)) {
+    useCounterStore().setloginDialogVisible()
+  }
 })
 
 export default router;
