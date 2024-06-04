@@ -55,10 +55,10 @@ const router = createRouter({
 })
 
 router.beforeEach((to, next) => {
-  const paths = ['/feihua', '/shici', '/jielong'];
+  const paths = ['/feihua', '/jielong']
   if (paths.includes(to.path)) {
     useCounterStore().setloginDialogVisible()
   }
 })
 
-export default router;
+export default router

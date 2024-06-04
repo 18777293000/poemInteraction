@@ -14,7 +14,7 @@ const isCurrentRoute = (path: string): boolean => {
 }
 </script>
 <template>
-  <v-app-bar color="#ffa631" density="compact">
+  <v-app-bar color="#ffa631" density="compact" class="header-background">
     <!-- <v-app-bar-title>{{ $t(titleKey) }}</v-app-bar-title> -->
     <template #append>
       <v-btn
@@ -42,5 +42,9 @@ const isCurrentRoute = (path: string): boolean => {
 }
 .active {
   opacity: 1 !important;
+}
+.header-background {
+  background-image: url('/images/background-title.png') !important;
+  background-position: 100% auto;
 }
 </style>

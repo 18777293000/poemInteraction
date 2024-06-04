@@ -6,13 +6,13 @@ export const useCounterStore = defineStore('counter', {
     loginDialogVisible: false,
     name: 'yangming',
     id: 'yj20230015',
-    college: '语言文化学院',
+    college: '语言文化学院'
   }),
   getters: {
     getCounter: (state): number => state.counter,
     getName: (state): string => state.name,
     getId: (state): string => state.id,
-    getCollege: (state): string => state.college,
+    getCollege: (state): string => state.college
   },
   actions: {
     counterIncrease(amount: number) {
@@ -27,9 +27,8 @@ export const useCounterStore = defineStore('counter', {
     setCollege(college: string) {
       this.college = college
     },
-    setloginDialogVisible(){
+    setloginDialogVisible() {
       this.loginDialogVisible = !this.loginDialogVisible
-    },
-    
+    }
   }
 })

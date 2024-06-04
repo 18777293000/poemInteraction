@@ -2,7 +2,7 @@
   <v-app>
     <v-layout>
       <HeaderLayout />
-      <v-main style="background-color: #eacd76;">
+      <v-main style="background-color: #eacd76">
         <slot />
         <DialogLayout />
       </v-main>
