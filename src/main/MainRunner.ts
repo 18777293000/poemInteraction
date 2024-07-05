@@ -1,6 +1,7 @@
 import { app, BrowserWindow, RenderProcessGoneDetails } from 'electron'
 import Constants from './utils/Constants'
 import IPCs from './IPCs'
+import splite3db from './sqlite3db'
 
 const exitApp = (mainWindow: BrowserWindow): void => {
   if (mainWindow && !mainWindow.isDestroyed()) {
@@ -23,6 +24,12 @@ export const createMainWindow = async (mainWindow: BrowserWindow): Promise<Brows
   mainWindow.setMenu(null)
 
   mainWindow.on('close', (event: Event): void => {
+    //关闭软件，关闭sqlite连接
+    splite3db.db.close((err) => {
+      if(err){
+        return console.error(err.message);
+      }
+    })
     event.preventDefault()
     exitApp(mainWindow)
   })
@@ -39,6 +46,9 @@ export const createMainWindow = async (mainWindow: BrowserWindow): Promise<Brows
     mainWindow.focus()
     mainWindow.setAlwaysOnTop(false)
   })
+
+  //创建数据表
+  splite3db.createDataTable();
 
   // Initialize IPC Communication
   IPCs.initialize()

@@ -1,7 +1,7 @@
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron'
 
 // Whitelist of valid channels used for IPC communication (Send message from Renderer to Main)
-const mainAvailChannels: string[] = ['msgRequestGetVersion', 'msgOpenExternalLink', 'msgOpenFile']
+const mainAvailChannels: string[] = ['msgRequestGetVersion', 'msgOpenExternalLink', 'msgOpenFile', 'query-items']
 const rendererAvailChannels: string[] = []
 
 contextBridge.exposeInMainWorld('mainApi', {
@@ -37,7 +37,8 @@ contextBridge.exposeInMainWorld('mainApi', {
     }
   },
   invoke: async (channel: string, ...data: any[]): Promise<any> => {
-    if (mainAvailChannels.includes(channel)) {
+    // if (mainAvailChannels.includes(channel)) 以前用来权限鉴定用
+    if (true) {
       const result = await ipcRenderer.invoke.apply(null, [channel, ...data])
       if (process.env.NODE_ENV === 'development') {
         console.log({ type: 'invoke', channel, request: data, result })

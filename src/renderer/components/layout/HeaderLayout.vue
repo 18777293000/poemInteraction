@@ -44,7 +44,7 @@ const isCurrentRoute = (path: string): boolean => {
   opacity: 1 !important;
 }
 .header-background {
-  background-image: url('/images/background-title.png') !important;
+  /* background-image: url('/images/background-title.png') !important; */
   background-position: 100% auto;
 }
 </style>
