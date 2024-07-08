@@ -2,11 +2,12 @@ import { defineStore } from 'pinia'
 
 export const useCounterStore = defineStore('counter', {
   state: () => ({
-    counter: 0,
+    counter: 1,
     loginDialogVisible: false,
     name: 'yangming',
     id: 'yj20230015',
-    college: '语言文化学院'
+    college: '语言文化学院',
+    poetryLength: 0,
   }),
   getters: {
     getCounter: (state): number => state.counter,
@@ -29,6 +30,9 @@ export const useCounterStore = defineStore('counter', {
     },
     setloginDialogVisible() {
       this.loginDialogVisible = !this.loginDialogVisible
+    },
+    setPoetryLength(len: number){
+      this.poetryLength = len;
     }
   }
 })

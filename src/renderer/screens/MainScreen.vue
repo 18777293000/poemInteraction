@@ -32,8 +32,6 @@ const getApplicationVersionFromMainProcess = (): void => {
 }
 
 const handleClick = (value: string): void => {
-  console.log(111)
-  console.log('name', name.value)
   switch (value) {
     case 'shici':
       router.push('/shici')

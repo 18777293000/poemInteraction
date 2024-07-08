@@ -76,12 +76,24 @@ export default class IPCs {
     });
 
     ipcMain.handle('queryById', async (event: IpcMainEvent, id) => {
+      console.log('ENTER querybyid')
       return new Promise((resolve, reject) => {
-        sqlite3db.db.all('SELECT FROM poetry WHERE id = ?', [id], (err, rows) => {
+        sqlite3db.db.all('SELECT * FROM poetry WHERE id = ?', [id], (err, rows) => {
+          console.log('queryByIderr', err);
+          console.log('queryByIdrow', rows);
           if(err){reject(err)}
           resolve(rows);
         })
       })
     });
+
+    ipcMain.handle('queryTableLength', async (event: IpcMainEvent, tableName:string) => {
+      return new Promise((resolve, reject) => {
+        sqlite3db.db.get(`SELECT COUNT(*) AS count FROM ${tableName}`, (err, rows)=>{
+          if(err) reject(err);
+          resolve(rows);
+        });
+      })
+    })
   }
 }

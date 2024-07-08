@@ -5,8 +5,8 @@ const { app } = require('electron');
 let DB_PATH = path.join(app.getAppPath(), '/config/poetry.db');
 
 
-console.log('连接数据库路径：', app.getAppPath());
-console.log('连接数据库路径：', DB_PATH);
+console.log('database path:', app.getAppPath());
+console.log('database path:', DB_PATH);
 
 
 // 判断是否是正式环境
@@ -19,16 +19,16 @@ if (app.isPackaged) {
 function connectDatabase() {
     return new sqlite3.Database(DB_PATH, (err) => {
         if (err) {
-            console.error("连接数据库错误", err.message);
+            console.error("database connect error", err.message);
         }
-        console.log('连接成功');
+        console.log('database connect success');
     })
 }
 
 const db = connectDatabase();
 
 function createDataTable() {
-    console.log("创建表格")
+    // console.log("创建表格")
     //创建用户表
     db.serialize(function () {
         db.run(`

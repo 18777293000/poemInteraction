@@ -2,13 +2,13 @@
   <v-container class="fill-height shici-background">
     <v-row class="text-center">
       <v-col cols="12" class="text-h3 slide-element slide-element.hide">
-        {{ shiciItems[next].title }}
+        {{ ShiciItem.title }}
       </v-col>
       <v-col cols="12" class="text-h4">
-        {{ shiciItems[next].name }}
+        {{ ShiciItem.author }}
       </v-col>
       <v-col cols="12" class="text-h4" style="white-space: pre-line; line-height: 4rem">
-        {{ addBreaksToPoem(shiciItems[next].content) }}
+        {{ addBreaksToPoem(ShiciItem.content) }}
       </v-col>
     </v-row>
     <v-row class="d-none">
@@ -17,38 +17,43 @@
   </v-container>
 </template>
 <script setup lang="ts">
+import { useCounterStore } from '@/renderer/store/counter';
+import { storeToRefs } from 'pinia';
 import { ref, onMounted, onBeforeUnmount } from 'vue'
-const next = ref(0)
+
+const { counterIncrease, setPoetryLength } = useCounterStore();
+const { counter } = storeToRefs(useCounterStore());
+const ShiciItem = ref({
+  author: "子兰",
+  content: "独蝉初唱古槐枝，委曲悲凉断续迟。雨后忽闻谁最苦，异乡孤馆忆家时。",
+  dynasty: "唐",
+  id: 18,
+  title: "蝉二首 其一",
+});
 let timer: any = null
 
 onMounted((): void => {
-  timer = setInterval(() => {
-    next.value++
-    if (next.value === shiciItems.length) {
-      next.value = 0
-    }
-  }, 2000)
+  window.mainApi.invoke('queryTableLength', 'poetry').then(res => {
+    // console.log('queryTableLength', res);
+    setPoetryLength(res.count);
+    timer = setInterval(() => {
+      getTableLength();
+    }, 5000)
+  });
 })
 
-const shiciItems = [
-  {
-    title: '《早春呈水部张十八员外》',
-    name: '韩愈',
-    content: '天街小雨润如酥，草色遥看近却无。最是一年春好处，绝胜烟柳满皇都。'
-  },
-  {
-    title: '《踏莎行·小径红稀》',
-    name: '晏殊',
-    content:
-      '重寻携手处，物是人非春暮。回首青门路。乱红飞絮相逐。行色匆匆，带酒有人携去。陌上相逢否。日暮碧云合，佳人在何处。'
-  },
-  {
-    title: '《御街行·前时小饮春庭院》',
-    name: '柳永',
-    content:
-      '别路长亭，离情别恨。愁来无计相回避。辇路生秋草，上林花发时。凭高何限意，无复侍臣知。十载故乡，十年佳妾。梦魂长在分襟地。参差烟树灞陵桥，风物尽前朝。哀蝉曲断，斜阳影里，秋光老尽，故人千里。'
-  }
-]
+const getTableLength = () => {
+  window.mainApi.invoke('queryById', counter.value).then(res => {
+    if (res.length === 1) {
+      ShiciItem.value.author = res[0].author;
+      ShiciItem.value.content = res[0].content;
+      ShiciItem.value.dynasty = res[0].dynasty;
+      ShiciItem.value.id = res[0].id;
+      ShiciItem.value.title = res[0].title;
+    }
+    counterIncrease(1);
+  });
+}
 
 const addBreaksToPoem = (poem: string): string => {
   // 使用正则表达式来匹配句尾（, . 或 ?）并添加<br>
