@@ -7,7 +7,7 @@
             <div class="text-h2 font-weight-medium">飞花令</div>
           </v-col>
           <v-col cols="12">
-            <v-carousel v-model="currentPage" show-arrows="hover" height="300" hide-delimiters>
+            <v-carousel v-model="currentPage" show-arrows="hover" height="300" hide-delimiters class="border-lg">
               <v-carousel-item value="0" class="">
                 <div class="d-flex flex-column justify-center mb-6">
                   <div class="text-subtitle-1 ma-2 pa-2">回答错误</div>
@@ -32,11 +32,16 @@
           </v-col>
         </v-row>
       </v-col>
-      <v-col cols="12">
+      <v-col cols="12" class="border-lg">
         <v-row align="center" justify="center" class="text-center">
           <v-col cols="4" class="">
             <v-progress-circular :color="colors[alertColor]" :model-value="time" :size="200" :width="10">
-              <v-btn :class="play ? 'd-none' : ''" color="amber-lighten-4" @click="gamePlay">开始</v-btn>
+              <v-card v-show="!play" class="mx-auto rounded-circle bg-amber-lighten-4" height="140" width="140">
+                <div class="d-flex fill-height align-center justify-center text-h3 circle-background"
+                  style="color: #1B5E20;" @click="gamePlay">
+                  {{ startBtn
+                  }}</div>
+              </v-card>
               <v-expand-x-transition>
                 <v-card v-show="play" class="mx-auto rounded-circle bg-amber-lighten-4" height="140" width="140">
                   <div class="d-flex fill-height align-center justify-center text-h1 circle-background">{{ currentChart
@@ -131,19 +136,24 @@ const completeShici = ref({
   title: "次王敬助见寄韵六首 其一",
 })
 const colors = ['#4CAF50', '#FFEB3B', '#D50000']
+const startBtn = ref('开始');
 const time = ref(100)
 const alertColor = ref(0)
 const answer = ref('')
 const currentChart = ref('')
 const currentPage = ref(1)
+const answerList: Array<Number> = [];
 let timer: any = null
+let fireWordEle: any = {};
 
 const gamePlay = (): void => {
   play.value = !play.value
-  currentChart.value = characters[Math.floor(Math.random() * characters.length)]
-  console.log('chart', currentChart.value)
-  time.value = 100
-  alertColor.value = 0
+  startBtn.value = '';
+  getNewQuestion();
+  startTime();
+}
+
+const startTime = (): void => {
   timer = setInterval(() => {
     time.value--
     if (time.value === 60) {
@@ -153,41 +163,88 @@ const gamePlay = (): void => {
       alertColor.value = 2
     }
     if (time.value === 0) {
-      play.value = !play.value
+      answerError();
+      setTimeout(() => {
+        getNewQuestion();
+        startTime();
+      }, 2000);
     }
-  }, 600)
+  }, 300);
+  //  600ms * 100 = 60s
+}
+
+const getChart = (): string => {
+  return characters[Math.floor(Math.random() * characters.length)];
+}
+
+const getNewQuestion = (): void => {
+  clearInterval(timer);
+  timer = null;
+  time.value = 100;
+  alertColor.value = 0;
+  currentPage.value = 1;
+  currentChart.value = getChart();
+}
+
+const answerRight = (): void => {
+  currentPage.value = 2;
+  answerList.push(1);
+  answer.value = '';
+  fireWordEle.className = 'fireworks-animation';
+}
+
+const answerError = (): void => {
+  currentPage.value = 0;
+  answer.value = '';
+  fireWordEle.className = '';
+  answerList.push(0);
 }
 
 const handleAnswer = (): void => {
-  const res: string = addBreaksToPoem('天花夜逐东风来，千山万山白皑皑。三阳献瑞后土泽，六出呈巧冯夷裁。漫空冥冥柳絮起，匝地漠漠梨花开。');
-  console.log("adad", res);
-  // if (time.value > 0) {
-  //   console.log('清楚定时器')
-  //   clearInterval(timer)
-  //   timer = null
-  // }
-  // console.log(answer.value);
-  // let res: boolean = true;
-  // window.mainApi.invoke('queryByWord', answer.value).then((result: Array<any>) => {
-  //   console.log('fanhuizhi', result);
-  //   if (result.length === 0) { res = false } else {
-  //     completeShici.value.author = result[0].author;
-  //     completeShici.value.content = result[0].content;
-  //     completeShici.value.dynasty = result[0].dynasty;
-  //     completeShici.value.id = result[0].id;
-  //     completeShici.value.title = result[0].title;
-  //   }
-  //   if (res) {
-  //     currentPage.value = 2
-  //     answer.value = ''
-  //   } else {
-  //     currentPage.value = 0
-  //   }
-  //   play.value = !play.value
-  //   time.value = 100
-  //   alertColor.value = 0
-  // });
+  fireWordEle = document.getElementById('fireworks');
+  fireWordEle.className = '';
+  if (time.value > 0) {
+    console.log('清除定时器')
+    clearInterval(timer)
+    timer = null
+  }
+  //  判断用户回答是否包含给定字符
+  const isAnswerContainChart: boolean = answer.value.indexOf(currentChart.value) !== -1;
+  if (!isAnswerContainChart) {
+    answerError();
+    setTimeout(() => {
+      getNewQuestion();
+      startTime();
+    }, 2000);
+  } else {
+    checkDatabase();
+  };
 };
+
+const checkDatabase = (): void => {
+  let res: boolean = true;
+  window.mainApi.invoke('queryByWord', answer.value).then((result: Array<any>) => {
+    console.log('fanhuizhi', result);
+    if (result.length === 0) { res = false } else {
+      completeShici.value.author = result[0].author;
+      completeShici.value.content = result[0].content;
+      completeShici.value.dynasty = result[0].dynasty;
+      completeShici.value.id = result[0].id;
+      completeShici.value.title = result[0].title;
+    }
+    if (res) {
+      console.log("回答正确");
+      answerRight();
+    } else {
+      answerError();
+    }
+    setTimeout(() => {
+      getNewQuestion();
+      startTime();
+      console.log("answerlist", answerList);
+    }, 4000);
+  });
+}
 
 const addBreaksToPoem = (poem: string): string => {
   // 使用正则表达式来匹配句尾（, . 或 ?）并添加<br>
@@ -230,7 +287,10 @@ onBeforeUnmount((): void => {
   bottom: 60%;
   margin-bottom: -400px;
   transform: scale(0);
-  animation: fireworks 5s 3s infinite;
+}
+
+.fireworks-animation {
+  animation: fireworks 4s 2s;
 }
 
 @keyframes fireworks {
