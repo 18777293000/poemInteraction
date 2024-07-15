@@ -166,10 +166,16 @@ const startTime = (): void => {
       answerError();
       setTimeout(() => {
         getNewQuestion();
-        startTime();
+        if(answerList.length !== 10){
+          //  回答10题后游戏结束
+          startTime();
+        }else{
+          play.value = !play.value;
+          startBtn.value = '结束';
+        }
       }, 2000);
     }
-  }, 300);
+  }, 20);
   //  600ms * 100 = 60s
 }
 
