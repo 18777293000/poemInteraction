@@ -1,10 +1,11 @@
 <template>
   <v-container class="fill-height align-center flex-column jielong-background">
-    <v-row id="scroll-target" class="overflow-y-auto pa-10" style="max-height: 700px">
+    <v-row id="scroll-target" class="overflow-y-auto pa-10 border-lg" style="max-height: 800px">
       <v-row
+        id="jielong-contain"
         align="center"
         justify="center"
-        style="height: 1000px"
+        style="border:1px solid red;"
         v-scroll:#scroll-target="onScroll"
       >
         <v-col cols="12">
@@ -16,7 +17,7 @@
 
               <v-card-text class="bg-surface-light pt-4">
                 <div
-                  >系统会给出一个关键字，答题要答出一句该字开头的诗句，并以句尾作为下一句的开头，共10题。</div
+                  >系统会给出一句诗，答题要答出一句该字开头的诗句，并以句尾作为下一句的开头，共10题。</div
                 >
                 <div>如： 问题：请写出首字为"一"的诗句：</div>
                 <div>则回答： <u>一声梧叶一声秋</u>，即算正确，</div>
@@ -27,17 +28,17 @@
         </v-col>
         <v-col cols="12">
           <v-row>
-            <v-timeline align="start" side="end">
-              <v-timeline-item key="0" :dot-color="items[0].color" :icon="items[0].icon" fill-dot>
+            <v-timeline align="start" side="end" class="border-lg">
+              <v-timeline-item key="0" :dot-color="titleQuestion.color" :icon="titleQuestion.icon" fill-dot>
                 <v-card>
-                  <v-card-title :class="['text-h6', `bg-${items[0].color}`]">
-                    白日依山尽
+                  <v-card-title :class="['text-h6', `bg-${titleQuestion.color}`]">
+                    {{ titleQuestion.showTitle }}
                   </v-card-title>
                   <v-card-text class="bg-white text--primary mt-2">
-                    <p>王之涣《登鹳雀楼》</p>
-                    <p>白日依山尽，黄河入海流。欲穷千里目，更上一层楼</p>
+                    <p>{{ titleQuestion.title }}</p>
+                    <p>{{ titleQuestion.content }}</p>
                     <v-btn
-                      :color="items[0].color"
+                      :color="titleQuestion.color"
                       prepend-icon="mdi-skip-forward"
                       variant="outlined"
                       class="mt-2"
@@ -50,19 +51,19 @@
               <v-timeline-item
                 v-for="i in showLength"
                 :key="i"
-                :dot-color="shiciItems[i].color"
-                :icon="shiciItems[i].icon"
+                :dot-color="items[i].color"
+                :icon="items[i].icon"
                 fill-dot
               >
                 <v-card>
-                  <v-card-title :class="['text-h6', `bg-${shiciItems[i].color}`]">
+                  <v-card-title :class="['text-h6', `bg-${items[i].color}`]">
                     {{ shiciItems[i].title }}
                   </v-card-title>
                   <v-card-text class="bg-white text--primary mt-2">
-                    <p>{{ shiciItems[i].name }}</p>
+                    <p>{{ shiciItems[i].title + shiciItems[i].author }}</p>
                     <p>{{ shiciItems[i].content }}</p>
                     <v-btn
-                      :color="shiciItems[i].color"
+                      :color="items[i].color"
                       prepend-icon="mdi-skip-forward"
                       variant="outlined"
                       class="mt-2"
@@ -128,42 +129,28 @@ const items: Array<any> = [
   {
     color: 'indigo-lighten-2',
     icon: 'mdi-layers-triple'
+  },
+  {
+    color: 'orange-darken-4',
+    icon: 'mdi-call-split',
+  },
+  {
+    color: 'brown-darken-1',
+    icon: 'mdi-message-text',
   }
 ]
 
-const showLength = ref(0)
+const showLength = ref(0);
 
-const shiciItems = [
-  {
-    title: '尽日无人看微雨',
-    name: '皮日休《汴河怀古二首》',
-    content: '尽日无人看微雨，鸳鸯相对浴红衣。莫近青芜岸，苹花点点秋。',
-    color: 'purple-lighten-2',
-    icon: 'mdi-book-variant'
-  },
-  {
-    title: '雨前初见花间蕊',
-    name: '王驾《春晴首》',
-    content: '雨前初见花间蕊，雨后全无叶底花。蜂蝶纷纷过墙去，却疑春色在邻家。',
-    color: 'green-lighten-1',
-    icon: 'mdi-airballoon'
-  },
-  {
-    title: '蕊黄无限当山额',
-    name: '韩偓《浣溪沙·宿醉离愁慢髻鬟》',
-    content: '蕊黄无限当山额，宿粉还留枕畔香。蜜意经年别苦辛，偷尝檀炷绕衣薰。',
-    color: 'indigo-lighten-2',
-    icon: 'mdi-layers-triple'
-  },
-  {
-    title: '香销翠减，回首几风流',
-    name: '晏殊《踏莎行·小径红稀》',
-    content:
-      '重寻携手处，物是人非春暮。回首青门路。乱红飞絮相逐。行色匆匆，带酒有人携去。陌上相逢否。日暮碧云合，佳人在何处。',
-    color: 'purple-lighten-2',
-    icon: 'mdi-book-variant'
-  }
-]
+const titleQuestion = ref({
+  showTitle: '白日依山尽', // 这个属性放用户自己输入的句子
+  title: '王之涣《登鹳雀楼》',
+  content: '白日依山尽，黄河入海流。欲穷千里目，更上一层楼。',
+  color: 'blue-darken-2',
+  icon: 'mdi-antenna',
+})
+
+const shiciItems:Array<any> = [];
 const answer = ref('')
 
 const onScroll = (e): void => {
@@ -172,7 +159,16 @@ const onScroll = (e): void => {
 
 const handleAnswer = (): void => {
   console.log('jielong', answer.value)
-  showLength.value++
+  // showLength.value++;
+  checkDdataBase();
+}
+
+const checkDdataBase = ():void => {
+  window.mainApi.invoke('queryByWord', answer.value).then((res:any) => {
+    console.log('jielong res', res);
+    //  有返回值，说明诗句没有问题
+    shiciItems.push(res);
+  });
 }
 </script>
 
