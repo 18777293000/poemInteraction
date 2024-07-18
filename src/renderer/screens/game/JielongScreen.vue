@@ -43,7 +43,7 @@
                       variant="outlined"
                       class="mt-2"
                     >
-                      尽
+                      尽投
                     </v-btn>
                   </v-card-text>
                 </v-card>
