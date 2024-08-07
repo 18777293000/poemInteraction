@@ -1,5 +1,5 @@
 <template>
-  <v-container class="fill-height flex-column jielong-background">
+  <v-container class="fill-height flex-column jielong-background" style="border: 1px solid red;">
     <div id="scroll-target" class="overflow-y-auto pa-10 border-lg">
       <!-- v-scroll:#scroll-target="onScroll" -->
       <v-card class="mx-auto" prepend-icon="mdi-apps" subtitle="规则介绍" width="600">
@@ -15,7 +15,8 @@
         </v-card-text>
       </v-card>
       <chat-component :type="0"></chat-component>
-      <chat-component v-for="(item, index) in chatLists" :key="index" :type="item.type" :content="item.content" :title="item.title" :round="item.round"></chat-component>
+      <chat-component v-for="(item, index) in chatLists" :key="index" :type="item.type" :content="item.content"
+        :title="item.title" :round="item.round" :id="item.id"></chat-component>
     </div>
     <div id="scroll-btn">
       <div class="pt-3 border-lg" style="min-width: 600px">
@@ -26,68 +27,29 @@
         </v-btn>
       </div>
     </div>
+    <rank-component ref="rankRef"></rank-component>
   </v-container>
 </template>
 
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref, createVNode, render } from 'vue';
+import { onBeforeUnmount, onMounted, ref, nextTick } from 'vue';
 import ChatComponent from '@/renderer/components/game/ChatComponent.vue';
-const items: Array<any> = [
-  {
-    color: 'red-lighten-2',
-    icon: 'mdi-star'
-  },
-  {
-    color: 'purple-lighten-2',
-    icon: 'mdi-book-variant'
-  },
-  {
-    color: 'green-lighten-1',
-    icon: 'mdi-airballoon'
-  },
-  {
-    color: 'indigo-lighten-2',
-    icon: 'mdi-layers-triple'
-  },
-  {
-    color: 'red-lighten-2',
-    icon: 'mdi-star'
-  },
-  {
-    color: 'purple-lighten-2',
-    icon: 'mdi-book-variant'
-  },
-  {
-    color: 'green-lighten-1',
-    icon: 'mdi-airballoon'
-  },
-  {
-    color: 'indigo-lighten-2',
-    icon: 'mdi-layers-triple'
-  },
-  {
-    color: 'orange-darken-4',
-    icon: 'mdi-call-split',
-  },
-  {
-    color: 'brown-darken-1',
-    icon: 'mdi-message-text',
-  }
-]
+import RankComponent from '@/renderer/components/game/RankComponent.vue';
 
-const titleQuestion = ref({
-  showTitle: '白日依山尽', // 这个属性放用户自己输入的句子
-  title: '王之涣《登鹳雀楼》',
-  content: '白日依山尽，黄河入海流。欲穷千里目，更上一层楼。',
-  color: 'blue-darken-2',
-  icon: 'mdi-antenna',
-})
+interface IPoem {
+  dynasty: string,
+  author: string,
+  id: number,
+  title: string,
+  content: string,
+}
 
-const shiciItems: Array<any> = [];
-const answer:any = ref('');
+const answer: any = ref('');
+const chatLists: any = ref([]);
+const round: any = ref(1);
+const rankRef: any = ref();
 let scrollTargetDom: any = null;
 let pageDom: any = null;
-const chatLists: any = ref([]);
 
 onMounted(() => {
   scrollTargetDom = document.getElementById('scroll-target');
@@ -103,24 +65,94 @@ const resizeDom = (): void => {
   scrollTargetDom.style.height = (pageHeight * 0.7) + 'px';
   //  核心，保持滚动始终在最下面，显示最新的诗词
   scrollTargetDom.scrollTop = scrollTargetDom.scrollHeight;
-}
+};
+
+const setScrollTop = (): void => {
+  nextTick(() => {
+    scrollTargetDom.scrollTop = scrollTargetDom.scrollHeight;
+  })
+};
 
 const handleAnswer = (): void => {
-  console.log('jielong', answer.value)
-  chatLists.value.push({
-    type: 1,
-    content: '123',
-    title: '456',
-    round: 1,
-  })
-}
+  console.log('jielong', answer.value);
+  checkDdataBase(answer.value);
+};
 
-const checkDdataBase = (): void => {
-  window.mainApi.invoke('queryByWord', answer.value).then((res: any) => {
+//  显示排位图标
+const showRank = ():void => {
+  rankRef.value.updateRank(round.value);
+};
+
+const checkDdataBase = (value: string): void => {
+  window.mainApi.invoke('queryByWord', value).then((res: Array<IPoem>) => {
     console.log('jielong res', res);
     //  有返回值，说明诗句没有问题
-    shiciItems.push(res);
+    if (res[0]) {
+      const data = res[0];
+      chatLists.value.push({
+        type: 2,
+        content: value,
+        title: data.dynasty + ' · ' + data.author + '《' + deleteLongStr(data.title) + '》',
+        round: round.value,
+        id: data.id
+      });
+      //  诗句查询成功的情况才去机器人对诗
+      setScrollTop();
+      showRank();
+      robotChat(answer.value);
+      answer.value = '';
+    } else {
+      //  诗句不存在
+    }
   });
+}
+
+const getLastChar = (str: string): string => {
+  // 获取最后一个字符  
+  const lastChar = str.charAt(str.length - 1);
+  return lastChar
+}
+
+const deleteLongStr = (str: string): string => {
+  let result: string = str;
+  if (str.length > 10) {
+    result = str.slice(0, 6);
+    result = result + '...';
+  }
+  return result;
+}
+
+const robotChat = (value: string): void => {
+  const lastChar: string = getLastChar(value)
+  window.mainApi.invoke('queryByLastWord', lastChar).then((res: Array<IPoem>) => {
+    console.log('queryByLastWord res', res);
+    const data: IPoem = res[0];
+    const text: string = data.content;
+    //  使用正则表达式分割字符串，正则表达式匹配逗号或句号，但不包括它们本身  
+    //  使用正则表达式中的括号（作为捕获组）配合`split`可能无法直接实现这一需求，  
+    //  因为`split`会根据匹配项分割字符串，而不是保留分隔符之外的部分。  
+    //  所以，我们使用正则表达式配合`match`方法来匹配非分隔符的部分。
+    const regex = /[^，。,.]+/g;
+    const sentences: Array<string> = text.match(regex) || [];
+    // 过滤出包含“萝”的句子  
+    let sentencesWithLuo: Array<string> = sentences.filter(sentence => sentence.includes(lastChar));
+    // 去除可能由于文本开头或结尾的句号导致的空字符串  
+    sentencesWithLuo = sentencesWithLuo.filter(sentence => sentence.trim() !== '').filter(sentence => sentence.startsWith(lastChar));
+    console.log(sentencesWithLuo);
+    chatLists.value.push({
+      type: 1,
+      content: sentencesWithLuo[0],
+      title: data.dynasty + ' · ' + data.author + '《' + deleteLongStr(data.title) + '》',
+      round: round.value,
+      id: data.id
+    });
+    setScrollTop();
+    round.value = round.value + 1;
+  }).catch((err: any): void => {
+    if (err.message === "无诗词") {
+      //  特殊处理
+    }
+  })
 }
 
 onBeforeUnmount(() => {
@@ -134,55 +166,6 @@ onBeforeUnmount(() => {
   background-image: url('/images/background-jielong.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  position: relative;
 }
 </style>
-<!-- <v-col cols="12">
-  <v-row>
-    <v-timeline align="start" side="end" class="border-lg">
-      <v-timeline-item key="0" :dot-color="titleQuestion.color" :icon="titleQuestion.icon" fill-dot>
-        <v-card>
-          <v-card-title :class="['text-h6', `bg-${titleQuestion.color}`]">
-            {{ titleQuestion.showTitle }}
-          </v-card-title>
-          <v-card-text class="bg-white text--primary mt-2">
-            <p>{{ titleQuestion.title }}</p>
-            <p>{{ titleQuestion.content }}</p>
-            <v-btn
-              :color="titleQuestion.color"
-              prepend-icon="mdi-skip-forward"
-              variant="outlined"
-              class="mt-2"
-            >
-              尽投
-            </v-btn>
-          </v-card-text>
-        </v-card>
-      </v-timeline-item>
-      <v-timeline-item
-        v-for="i in showLength"
-        :key="i"
-        :dot-color="items[i].color"
-        :icon="items[i].icon"
-        fill-dot
-      >
-        <v-card>
-          <v-card-title :class="['text-h6', `bg-${items[i].color}`]">
-            {{ shiciItems[i].title }}
-          </v-card-title>
-          <v-card-text class="bg-white text--primary mt-2">
-            <p>{{ shiciItems[i].title + shiciItems[i].author }}</p>
-            <p>{{ shiciItems[i].content }}</p>
-            <v-btn
-              :color="items[i].color"
-              prepend-icon="mdi-skip-forward"
-              variant="outlined"
-              class="mt-2"
-            >
-              {{ shiciItems[i].title.substr(-1) }}
-            </v-btn>
-          </v-card-text>
-        </v-card>
-      </v-timeline-item>
-    </v-timeline>
-  </v-row>
-</v-col> -->

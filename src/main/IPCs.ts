@@ -81,19 +81,50 @@ export default class IPCs {
         sqlite3db.db.all('SELECT * FROM poetry WHERE id = ?', [id], (err, rows) => {
           console.log('queryByIderr', err);
           console.log('queryByIdrow', rows);
-          if(err){reject(err)}
+          if (err) { reject(err) }
           resolve(rows);
         })
       })
     });
 
-    ipcMain.handle('queryTableLength', async (event: IpcMainEvent, tableName:string) => {
+    ipcMain.handle('queryTableLength', async (event: IpcMainEvent, tableName: string) => {
       return new Promise((resolve, reject) => {
-        sqlite3db.db.get(`SELECT COUNT(*) AS count FROM ${tableName}`, (err, rows)=>{
-          if(err) reject(err);
+        sqlite3db.db.get(`SELECT COUNT(*) AS count FROM ${tableName}`, (err, rows) => {
+          if (err) reject(err);
           resolve(rows);
         });
       })
+    });
+
+    ipcMain.handle('queryByLastWord', async (event: IpcMainEvent, word: string) => {
+      return new Promise((resolve, reject) => {
+        sqlite3db.db.all(`SELECT *  
+                          FROM poetry  
+                          WHERE content LIKE '%${word}%';
+                          `, (err, rows) => {
+          if (err) reject(err);
+          let result = [];
+          let test = [`，${word}`, `。${word}`];
+          console.log("rows length", rows.length);
+          for(let i=0;i<rows.length;i++){
+            let e = rows[i];
+            if(e.content.startsWith(word)){
+              result.push(e);
+              resolve(result);
+              break;
+            }
+            if(test.some(i => e.content.includes(i))){
+              result.push(e);
+              resolve(result);
+              break;
+            }
+          };
+          //  for循环结束，没有找到合适的诗词
+          reject(new Error("无诗词"));
+          // resolve(rows);
+        })
+      })
     })
+
   }
 }
