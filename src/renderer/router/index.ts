@@ -41,6 +41,13 @@ const router = createRouter({
       }
     },
     {
+      path: '/reword',
+      component: ()=>import('@/renderer/screens/RewordScreen.vue'),
+      meta: {
+        titleKey: 'Reword Screen'
+      }
+    },
+    {
       path: '/error',
       component: () => import('@/renderer/screens/ErrorScreen.vue'),
       meta: {

@@ -51,12 +51,9 @@ import { ref, defineExpose, nextTick } from 'vue';
 const props = defineProps(['rank']);
 const outputRank = ref(1);
 const rankItems = document.getElementsByClassName("rank-item");
-console.log('rankitems:', rankItems);
 
 const updateRank = (rank: number): void => {
     outputRank.value = rank;
-    // console.log('rankitems:', rankItems[outputRank.value - 1]);
-    // console.log('rank:', outputRank.value);
     if (rank > 1) {
         nextTick(() => {
             console.log('rankitems I:', rankItems[outputRank.value - 2]);

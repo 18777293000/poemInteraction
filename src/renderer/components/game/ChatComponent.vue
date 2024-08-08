@@ -1,5 +1,5 @@
 <template>
-    <div class="chat-contain border-lg">
+    <div class="chat-contain">
         <div v-if="outputType === 0" class="chat-start  pt-3">
             <v-card class="" 
             color="#758a99"
@@ -8,11 +8,11 @@
                 <v-card-title class="text-center" style="color: #161823;">起句</v-card-title>
 
                 <v-card-text>
-                    <div class="text-h4 text-center" style="color: #161823;">随风直到夜郎西</div>
+                    <div class="text-h4 text-center" style="color: #161823;">{{ outputContent }}</div>
                 </v-card-text>
             </v-card>
         </div>
-        <div v-if="outputType === 1" class="chat-left border  pt-3">
+        <div v-if="outputType === 1" class="chat-left  pt-3">
             <v-card class="" max-width="400">
                 <v-img class="align-end text-white" height="50" src="/images/chat-left.png"
                     cover>
@@ -32,7 +32,7 @@
                 </v-card-actions>
             </v-card>
         </div>
-        <div v-if="outputType === 2" class="chat-right  pt-3" style="border: 1px solid red;">
+        <div v-if="outputType === 2" class="chat-right  pt-3">
             <v-card class="text-end" min-width="400">
                 <v-img class="align-end text-white" height="50" src="/images/chat-right.png"
                     cover>
@@ -56,9 +56,6 @@
 </template>
 
 <script setup lang="ts">
-// import chatStartImg from '@/renderer/public/images/chat-start.jpg';
-// import chatLeft from '@/renderer/public/images/chat-left.png';
-// import chatright from '@/renderer/public/images/chat-right.png';
 import { onMounted, ref } from 'vue';
 const props = defineProps(['type', 'content', 'title', 'round', 'id']);
 const outputType:any = ref(0);
@@ -68,7 +65,6 @@ const outputRound:any = ref(1);
 const outputId:any = ref(1);
 
 onMounted(():void=>{
-    console.log("props", props.type)
     outputType.value = props.type;
     outputContent.value = props.content;
     outputTitle.value = props.title;
