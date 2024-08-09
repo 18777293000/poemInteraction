@@ -246,7 +246,6 @@ const overGame = (): void => {
   gameOver.value = !gameOver.value
   setTimeout(() => {
     toReword(answerList.value.filter(i => i === 1).length);
-    // toReword(1);
   }, 2000);
 }
 

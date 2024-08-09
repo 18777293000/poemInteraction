@@ -1,7 +1,7 @@
 <template>
     <v-container class="fill-height justify-center reword-background">
         <div class="reword-contain">
-            <img v-if="round >= 1 || round <= 9" class="reword-img" :src="`/images/rank/${round}.png`">
+            <img class="reword-img" :src="round >= 1 ? `/images/rank/${round}.png` : ''">
             <v-img class="position-relative" width="58vw" src="/images/bonus.jpg">
                 <div class="position-absolute reword-name">
                     {{ name }}
@@ -13,11 +13,12 @@
 <script setup lang="ts">
 import { useCounterStore } from '@/renderer/store/counter';
 import { storeToRefs } from 'pinia';
+import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 const { name } = storeToRefs(useCounterStore());
 const route = useRoute();
-const round: number = Number(route.query.round);
-console.log('round', round);
+const round: any = ref(0);
+round.value = Number(route.query.round);
 </script>
 <style scoped>
 .reword-background {
