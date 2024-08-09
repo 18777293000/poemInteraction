@@ -92,7 +92,7 @@ defineExpose({
 
 .play {
     animation: run 3s linear;
-    z-index: 99;
+    z-index: 10;
 }
 
 .rank-img {

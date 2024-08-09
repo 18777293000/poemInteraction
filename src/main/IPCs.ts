@@ -76,11 +76,11 @@ export default class IPCs {
     });
 
     ipcMain.handle('queryById', async (event: IpcMainEvent, id) => {
-      console.log('ENTER querybyid')
+      // console.log('ENTER querybyid')
       return new Promise((resolve, reject) => {
         sqlite3db.db.all('SELECT * FROM poetry WHERE id = ?', [id], (err, rows) => {
-          console.log('queryByIderr', err);
-          console.log('queryByIdrow', rows);
+          // console.log('queryByIderr', err);
+          // console.log('queryByIdrow', rows);
           if (err) { reject(err) }
           resolve(rows);
         })
@@ -105,7 +105,7 @@ export default class IPCs {
           if (err) reject(err);
           let result = [];
           let test = [`，${word}`, `。${word}`];
-          console.log("rows length", rows.length);
+          // console.log("rows length", rows.length);
           for(let i=0;i<rows.length;i++){
             let e = rows[i];
             if(e.content.startsWith(word)){
