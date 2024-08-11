@@ -6,6 +6,7 @@ import { useCounterStore } from '@/renderer/store/counter'
 import { storeToRefs } from 'pinia'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import MusicComponent from '@/renderer/components/MusicComponent.vue'
 
 const { locale, availableLocales } = useI18n()
 const { counterIncrease, setName } = useCounterStore()
@@ -13,6 +14,7 @@ const { counter, name } = storeToRefs(useCounterStore())
 const theme = useTheme()
 const languages = ref(['en'])
 const appVersion = ref('Unknown')
+const mainMusicRef = ref();
 const selectedFile = ref('')
 const slides = ['First', 'Second']
 const colors = ['indigo', 'warning', 'pink darken-2', 'red lighten-1', 'deep-purple accent-4']
@@ -22,7 +24,9 @@ onMounted((): void => {
   languages.value = availableLocales
 
   // Get application version from package.json version string (Using IPC communication)
-  getApplicationVersionFromMainProcess()
+  getApplicationVersionFromMainProcess();
+  mainMusicRef.value.selectSong('GaoShanLiuShui');
+  mainMusicRef.value.play();
 })
 
 const getApplicationVersionFromMainProcess = (): void => {
@@ -49,6 +53,8 @@ const handleClick = (value: string): void => {
 <template>
   <v-container class="back-display">
     <v-row no-gutters align="center" class="text-center fill-height">
+      <div>
+      </div>
       <v-col v-for="n in 1" :key="n">
         <v-carousel
           height="500"
@@ -78,7 +84,7 @@ const handleClick = (value: string): void => {
                 class="d-flex fill-height align-center"
                 style="flex-direction: column; justify-content: space-around"
               >
-                <div class="text-h2" style="font-family: 'qiuhongkai'"> 诗词风采 </div>
+                <div class="text-h2 test-font"> 诗词风采 </div>
                 <div class="text-h6">
                   余昔于江陵，见天台司马子微，谓余有仙风道骨，可与神游八极之表。因著大鹏遇希有鸟赋以自广。此赋已传于世，往往人间见之。悔其少作，未穷宏达之旨，中年弃之。及读晋书，睹阮宣子大鹏赞，鄙心陋之。遂更记忆，多将旧本不同。今复存手集，岂敢传诸作者？庶可示之子弟而已。
                 </div>
@@ -144,12 +150,15 @@ const handleClick = (value: string): void => {
         </v-carousel>
       </v-col>
     </v-row>
+    <music-component ref="mainMusicRef"></music-component>
   </v-container>
 </template>
 
 <style scoped>
+.test-font{
+  font-family: qiuhongkai;
+}
 .back-display {
-  font-family: 'qiuhongkai' !important;
   background-image: url('/images/background.jpg');
   background-repeat: no-repeat;
   background-size: cover;

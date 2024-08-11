@@ -73,7 +73,7 @@
             <v-expand-x-transition>
               <v-card v-show="gameOver" class="bg-amber-lighten-4 mx-auto" height="140" width="300">
                 <div class="text-h4 pt-5">体验完成</div>
-                <div class="text-h5 pt-5">回答正确{{ answerList.filter(i => i === 1).length }}题, 用时xx分钟</div>
+                <div class="text-h5 pt-5">正确回答{{ answerList.filter(i => i === 1).length }}题</div>
               </v-card>
             </v-expand-x-transition>
           </v-col>

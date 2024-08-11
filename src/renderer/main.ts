@@ -5,7 +5,8 @@ import App from '@/renderer/App.vue'
 import router from '@/renderer/router'
 import vuetify from '@/renderer/plugins/vuetify'
 import i18n from '@/renderer/plugins/i18n'
-import '@/renderer/public/font/globalFont.css'
+// import '@/renderer/public/font/globalFont.css'
+import '@/renderer/public/font/qiuhongkai.ttf'
 
 // Add API key defined in contextBridge to window object type
 declare global {

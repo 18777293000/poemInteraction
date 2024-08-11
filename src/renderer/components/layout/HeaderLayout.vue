@@ -23,7 +23,8 @@ const isCurrentRoute = (path: string): boolean => {
         :class="{ active: isCurrentRoute('/') }"
         @click="handleRoute('/')"
       >
-        {{ $t('title.main') }}
+        <!-- {{ $t('title.main') }} -->
+          诗词展示
       </v-btn>
       <v-btn
         prepend-icon="mdi-fit-to-screen-outline"
@@ -31,7 +32,8 @@ const isCurrentRoute = (path: string): boolean => {
         :class="{ active: isCurrentRoute('/second') }"
         @click="handleRoute('/second')"
       >
-        {{ $t('title.second') }}
+        <!-- {{ $t('title.second') }} -->
+          设置
       </v-btn>
     </template>
   </v-app-bar>
