@@ -23,8 +23,8 @@ const round: any = ref(0)
 const rewordMusicRef = ref()
 round.value = Number(route.query.round)
 
-onMounted(()=>{
-  rewordMusicRef.value.selectSong("YuZhouChangWan")
+onMounted(() => {
+  rewordMusicRef.value.selectSong('YuZhouChangWan')
   rewordMusicRef.value.play()
 })
 </script>

@@ -40,7 +40,7 @@
 import { ref, reactive, onMounted } from 'vue'
 import { useCounterStore } from '@/renderer/store/counter'
 import { storeToRefs } from 'pinia'
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'
 
 const { setloginDialogVisible, setName, setId, setCollege } = useCounterStore()
 const { loginDialogVisible } = storeToRefs(useCounterStore())
@@ -77,7 +77,7 @@ onMounted((): void => {
 
 const closeDialog = (): void => {
   setloginDialogVisible()
-  router.push({path: '/'})
+  router.push({ path: '/' })
 }
 
 const saveUserInfo = (): void => {
