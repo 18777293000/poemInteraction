@@ -1,13 +1,13 @@
 <template>
   <v-container class="fill-height shici-background">
     <v-row class="text-center">
-      <v-col cols="12" class="text-h3 slide-element slide-element.hide">
-        {{ ShiciItem.title }}
+      <v-col cols="12" class="shici-title slide-element slide-element.hide">
+        《{{ ShiciItem.title }}》
       </v-col>
-      <v-col cols="12" class="text-h4">
+      <v-col cols="12" class="shici-content">
         {{ ShiciItem.author }}
       </v-col>
-      <v-col cols="12" class="text-h4" style="white-space: pre-line; line-height: 4rem">
+      <v-col cols="12" class="shici-content" style="white-space: pre-line; line-height: 4rem">
         {{ addBreaksToPoem(ShiciItem.content) }}
       </v-col>
     </v-row>
@@ -43,7 +43,7 @@ onMounted((): void => {
     setPoetryLength(res.count)
     timer = setInterval(() => {
       getTableLength()
-    }, 5000)
+    }, 8000)
   })
 })
 
@@ -83,5 +83,20 @@ onBeforeUnmount(() => {
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
+}
+
+.shici-title {
+  font-size: 3rem !important;
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+}
+
+.shici-content {
+  font-size: 2.125rem !important;
+  font-weight: 400;
+  letter-spacing: 0.0073529412em !important;
+  text-transform: none !important;
 }
 </style>
