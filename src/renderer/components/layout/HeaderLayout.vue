@@ -24,7 +24,7 @@ const isCurrentRoute = (path: string): boolean => {
         @click="handleRoute('/')"
       >
         <!-- {{ $t('title.main') }} -->
-          诗词展示
+        诗词展示
       </v-btn>
       <v-btn
         prepend-icon="mdi-fit-to-screen-outline"
@@ -33,7 +33,7 @@ const isCurrentRoute = (path: string): boolean => {
         @click="handleRoute('/second')"
       >
         <!-- {{ $t('title.second') }} -->
-          设置
+        设置
       </v-btn>
     </template>
   </v-app-bar>

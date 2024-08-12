@@ -17,42 +17,42 @@
   </v-container>
 </template>
 <script setup lang="ts">
-import { useCounterStore } from '@/renderer/store/counter';
-import { storeToRefs } from 'pinia';
+import { useCounterStore } from '@/renderer/store/counter'
+import { storeToRefs } from 'pinia'
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
-const { counterIncrease, setPoetryLength } = useCounterStore();
-const { counter } = storeToRefs(useCounterStore());
+const { counterIncrease, setPoetryLength } = useCounterStore()
+const { counter } = storeToRefs(useCounterStore())
 const ShiciItem = ref({
-  author: "子兰",
-  content: "独蝉初唱古槐枝，委曲悲凉断续迟。雨后忽闻谁最苦，异乡孤馆忆家时。",
-  dynasty: "唐",
+  author: '子兰',
+  content: '独蝉初唱古槐枝，委曲悲凉断续迟。雨后忽闻谁最苦，异乡孤馆忆家时。',
+  dynasty: '唐',
   id: 18,
-  title: "蝉二首 其一",
-});
+  title: '蝉二首 其一'
+})
 let timer: any = null
 
 onMounted((): void => {
-  window.mainApi.invoke('queryTableLength', 'poetry').then(res => {
+  window.mainApi.invoke('queryTableLength', 'poetry').then((res) => {
     // console.log('queryTableLength', res);
-    setPoetryLength(res.count);
+    setPoetryLength(res.count)
     timer = setInterval(() => {
-      getTableLength();
+      getTableLength()
     }, 5000)
-  });
+  })
 })
 
 const getTableLength = () => {
-  window.mainApi.invoke('queryById', counter.value).then(res => {
+  window.mainApi.invoke('queryById', counter.value).then((res) => {
     if (res.length === 1) {
-      ShiciItem.value.author = res[0].author;
-      ShiciItem.value.content = res[0].content;
-      ShiciItem.value.dynasty = res[0].dynasty;
-      ShiciItem.value.id = res[0].id;
-      ShiciItem.value.title = res[0].title;
+      ShiciItem.value.author = res[0].author
+      ShiciItem.value.content = res[0].content
+      ShiciItem.value.dynasty = res[0].dynasty
+      ShiciItem.value.id = res[0].id
+      ShiciItem.value.title = res[0].title
     }
-    counterIncrease(1);
-  });
+    counterIncrease(1)
+  })
 }
 
 const addBreaksToPoem = (poem: string): string => {

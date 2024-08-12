@@ -18,7 +18,9 @@
             </tbody>
           </v-table>
           <v-card-actions>
-            <v-btn size="large" variant="outlined" color="blue-lighten-1" @click="upload()">上传</v-btn>
+            <v-btn size="large" variant="outlined" color="blue-lighten-1" @click="upload()"
+              >上传</v-btn
+            >
           </v-card-actions>
         </v-card>
       </v-col>
@@ -44,7 +46,9 @@
             </tbody>
           </v-table>
           <v-card-actions>
-            <v-btn size="large" variant="outlined" color="blue-lighten-1" @click="upload2()">上传</v-btn>
+            <v-btn size="large" variant="outlined" color="blue-lighten-1" @click="upload2()"
+              >上传</v-btn
+            >
           </v-card-actions>
         </v-card>
       </v-col>
@@ -56,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted } from 'vue'
 
 const desserts = [
   {
@@ -71,22 +75,21 @@ const desserts = [
     name: 'Eclair',
     calories: 262
   }
-];
+]
 
-const upload2 = ():void => {
+const upload2 = (): void => {
   window.mainApi.invoke('queryByWord', '春').then((res: any) => {
-    console.log("user database", res);
+    console.log('user database', res)
   })
-};
+}
 
-const upload = ():void => {
+const upload = (): void => {
   window.mainApi.invoke('delete-item', 3).then((res: string) => {
-    console.log('add item', res);
+    console.log('add item', res)
   })
-};
+}
 
-onMounted(():void => {
-});
+onMounted((): void => {})
 </script>
 
 <style></style>

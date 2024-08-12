@@ -1,7 +1,13 @@
 <template>
   <v-container>
     <v-dialog v-model="loginDialogVisible" max-width="500" persistent>
-      <v-card prepend-icon="mdi-account-circle" text="" title="用户登录" class="login-card" image="/images/zhongLou.jpg">
+      <v-card
+        prepend-icon="mdi-account-circle"
+        text=""
+        title="用户登录"
+        class="login-card"
+        image="/images/zhongLou.jpg"
+      >
         <v-card-text>
           <v-row dense>
             <v-col cols="12">

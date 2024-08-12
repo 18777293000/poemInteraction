@@ -14,7 +14,7 @@ const { counter, name } = storeToRefs(useCounterStore())
 const theme = useTheme()
 const languages = ref(['en'])
 const appVersion = ref('Unknown')
-const mainMusicRef = ref();
+const mainMusicRef = ref()
 const selectedFile = ref('')
 const slides = ['First', 'Second']
 const colors = ['indigo', 'warning', 'pink darken-2', 'red lighten-1', 'deep-purple accent-4']
@@ -24,9 +24,9 @@ onMounted((): void => {
   languages.value = availableLocales
 
   // Get application version from package.json version string (Using IPC communication)
-  getApplicationVersionFromMainProcess();
-  mainMusicRef.value.selectSong('GaoShanLiuShui');
-  mainMusicRef.value.play();
+  getApplicationVersionFromMainProcess()
+  mainMusicRef.value.selectSong('GaoShanLiuShui')
+  mainMusicRef.value.play()
 })
 
 const getApplicationVersionFromMainProcess = (): void => {
@@ -53,8 +53,7 @@ const handleClick = (value: string): void => {
 <template>
   <v-container class="back-display">
     <v-row no-gutters align="center" class="text-center fill-height">
-      <div>
-      </div>
+      <div> </div>
       <v-col v-for="n in 1" :key="n">
         <v-carousel
           height="500"
@@ -155,7 +154,7 @@ const handleClick = (value: string): void => {
 </template>
 
 <style scoped>
-.test-font{
+.test-font {
   font-family: qiuhongkai;
 }
 .back-display {

@@ -26,8 +26,8 @@ export const createMainWindow = async (mainWindow: BrowserWindow): Promise<Brows
   mainWindow.on('close', (event: Event): void => {
     //关闭软件，关闭sqlite连接
     splite3db.db.close((err) => {
-      if(err){
-        return console.error(err.message);
+      if (err) {
+        return console.error(err.message)
       }
     })
     event.preventDefault()
@@ -48,7 +48,7 @@ export const createMainWindow = async (mainWindow: BrowserWindow): Promise<Brows
   })
 
   //创建数据表
-  splite3db.createDataTable();
+  splite3db.createDataTable()
 
   // Initialize IPC Communication
   IPCs.initialize()
