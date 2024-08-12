@@ -8,17 +8,25 @@
         </div>
       </v-img>
     </div>
+    <music-component ref="rewordMusicRef"></music-component>
   </v-container>
 </template>
 <script setup lang="ts">
 import { useCounterStore } from '@/renderer/store/counter'
 import { storeToRefs } from 'pinia'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import MusicComponent from '../components/MusicComponent.vue'
 const { name } = storeToRefs(useCounterStore())
 const route = useRoute()
 const round: any = ref(0)
+const rewordMusicRef = ref()
 round.value = Number(route.query.round)
+
+onMounted(()=>{
+  rewordMusicRef.value.selectSong("YuZhouChangWan")
+  rewordMusicRef.value.play()
+})
 </script>
 <style scoped>
 .reword-background {

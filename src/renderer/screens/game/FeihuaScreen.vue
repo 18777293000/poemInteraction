@@ -9,7 +9,7 @@
           </v-col>
           <!-- style="z-index: 12;" 加上这个让幻灯片悬在排名之上 -->
           <v-col cols="12">
-            <v-carousel v-model="currentPage" show-arrows="hover" height="300" hide-delimiters class="">
+            <v-carousel v-model="currentPage" :show-arrows="false" height="300" hide-delimiters class="">
               <v-carousel-item value="0" class="">
                 <div class="pa-6">
                   <div class="d-flex justify-center align-center error-border-inner">
@@ -35,7 +35,7 @@
                     <h3>{{ completeShici.author }}</h3>
                     <p style="white-space: pre-line; margin-top: 4px">{{
                       addBreaksToPoem(completeShici.content)
-                      }}</p>
+                    }}</p>
                     <!-- <p v-for="(item, index) in slicePoem(completeShici.content)" :key="index">{{ item }}</p> -->
                   </div>
                 </div>
@@ -66,7 +66,7 @@
                 <v-text-field v-model="answer" label="回答" class=""></v-text-field>
               </div>
               <div>
-                <v-btn prepend-icon="mdi-arrow-up-bold-box-outline" variant="tonal" block class="bg-amber-lighten-4"
+                <v-btn prepend-icon="mdi-arrow-up-bold-box-outline" variant="tonal" block :disabled="btnDisabled" class="bg-amber-lighten-4"
                   @click="handleAnswer">
                   确认
                 </v-btn>
@@ -170,6 +170,7 @@ const currentPage = ref(1)
 const answerList: any = ref([])
 const jielongRankRef: any = ref()
 const feiHuaMusicRef = ref()
+const btnDisabled: any = ref(true)
 //  回答正确的回合
 const gameOver: any = ref(false)
 let timer: any = null
@@ -182,6 +183,7 @@ onMounted(() => {
 
 const gamePlay = (): void => {
   play.value = !play.value
+  btnDisabled.value = false
   startBtn.value = ''
   getNewQuestion()
   startTime()
@@ -198,7 +200,7 @@ const startTime = (): void => {
     }
     if (time.value === 0) {
       answerError()
-      if (answerList.value.length >= 11) {
+      if (answerList.value.length >= 10) {
         //  用户一直静止不动，点击开始后，放置10个回合，然后也是结束游戏
         overGame()
       } else {
@@ -223,6 +225,7 @@ const getNewQuestion = (): void => {
   alertColor.value = 0
   currentPage.value = 1
   currentChart.value = getChart()
+  btnDisabled.value = false;
 }
 
 const answerRight = (): void => {
@@ -231,6 +234,9 @@ const answerRight = (): void => {
   answer.value = ''
   fireWordEle.className = 'fireworks-animation'
   jielongRankRef.value.updateRank(answerList.value.filter((i) => i === 1).length)
+  if(answerList.value.length >= 10){
+    overGame();
+  }
 }
 
 const answerError = (): void => {
@@ -238,6 +244,9 @@ const answerError = (): void => {
   answer.value = ''
   fireWordEle.className = ''
   answerList.value.push(0)
+  if(answerList.value.length >= 10){
+    overGame();
+  }
 }
 
 const toReword = (rank: number) => {
@@ -261,6 +270,7 @@ const overGame = (): void => {
 }
 
 const handleAnswer = (): void => {
+  btnDisabled.value = true;
   fireWordEle = document.getElementById('fireworks')
   fireWordEle.className = ''
   if (time.value > 0) {
@@ -299,15 +309,11 @@ const checkDatabase = (): void => {
     } else {
       answerError()
     }
-    if (answerList.value.length >= 11) {
-      overGame()
-    } else {
-      setTimeout(() => {
-        getNewQuestion()
-        startTime()
-        console.log('answerlist', answerList.value)
-      }, 4000)
-    }
+    setTimeout(() => {
+      getNewQuestion()
+      startTime()
+      console.log('answerlist', answerList.value)
+    }, 4000)
   })
 }
 

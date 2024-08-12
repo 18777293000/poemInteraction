@@ -1,10 +1,10 @@
 <template>
   <div class="music-contain">
-    <audio ref="audioGaoShanLiuShui" src="/public/bgm/GaoShanLiuShui.mp3"></audio>
-    <audio ref="audioChunJiangHuaYueYe" src="/public/bgm/ChunJiangHuaYueYe.mp3"></audio>
-    <audio ref="audioQianNianFengYa" src="/public/bgm/QianNianFengYa.mp3"></audio>
-    <audio ref="audioYuGuangQu" src="/public/bgm/YuGuangQu.mp3"></audio>
-    <audio ref="audioYuZhouChangWan" src="/public/bgm/YuZhouChangWan.mp3"></audio>
+    <audio ref="audioGaoShanLiuShui" src="/public/bgm/GaoShanLiuShui.mp3" loop></audio>
+    <audio ref="audioChunJiangHuaYueYe" src="/public/bgm/ChunJiangHuaYueYe.mp3" loop></audio>
+    <audio ref="audioQianNianFengYa" src="/public/bgm/QianNianFengYa.mp3" loop></audio>
+    <audio ref="audioYuGuangQu" src="/public/bgm/YuGuangQu.mp3" loop></audio>
+    <audio ref="audioYuZhouChangWan" src="/public/bgm/YuZhouChangWan.mp3" loop></audio>
 
     <v-avatar
       id="music-btn"
