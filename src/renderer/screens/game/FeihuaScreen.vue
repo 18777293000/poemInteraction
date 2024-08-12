@@ -9,7 +9,7 @@
           </v-col>
           <!-- style="z-index: 12;" 加上这个让幻灯片悬在排名之上 -->
           <v-col cols="12">
-            <v-carousel v-model="currentPage" :show-arrows="false" height="300" hide-delimiters class="">
+            <v-carousel v-model="currentPage" show-arrows="hover" height="300" hide-delimiters class="">
               <v-carousel-item value="0" class="">
                 <div class="pa-6">
                   <div class="d-flex justify-center align-center error-border-inner">
@@ -44,9 +44,9 @@
           </v-col>
         </v-row>
       </v-col>
-      <v-col cols="12" class="border-lg">
+      <v-col cols="12" class="">
         <v-row align="center" justify="start" class="text-center">
-          <v-col cols="3" class="border-lg">
+          <v-col cols="3" class="">
             <v-progress-circular :color="colors[alertColor]" :model-value="time" :size="200" :width="10">
               <v-card v-show="!play" class="mx-auto rounded-circle bg-amber-lighten-4" height="140" width="140">
                 <div class="d-flex fill-height align-center justify-center text-h3 circle-background"
@@ -60,7 +60,7 @@
               </v-expand-x-transition>
             </v-progress-circular>
           </v-col>
-          <v-col cols="7" class="border-lg">
+          <v-col cols="7" class="">
             <section v-show="!gameOver">
               <div>
                 <v-text-field v-model="answer" label="回答" class=""></v-text-field>
@@ -153,12 +153,12 @@ const { setloginDialogVisible } = useCounterStore()
 const play = ref(false)
 const router = useRouter()
 const completeShici = ref({
-  author: '岑安卿',
+  author: ' ',
   content:
-    '开元古名刹，独客思凄然。开元古名刹，独客思凄然。开元古名刹，独客思凄然。开元古名刹，独客思凄然。开元古名刹，独客思凄然。开元古名刹，独客思凄然。',
+    '仙人抚我顶，结发授长生',
   dynasty: '元',
   id: 354527,
-  title: '次王敬助见寄韵六首 其一'
+  title: ' '
 })
 const colors = ['#4CAF50', '#FFEB3B', '#D50000']
 const startBtn = ref('开始')

@@ -42,7 +42,7 @@ onMounted(() => {
 })
 
 const play = () => {
-  console.log('audio:', currentSong.value)
+  // console.log('audio:', currentSong.value)
   musicBtnDom.classList.add('play')
   if (currentSong.value) {
     currentSong.value.play()
@@ -62,7 +62,7 @@ const onClick = () => {
 }
 
 const selectSong = (name: string): void => {
-  console.log('select song:', name)
+  // console.log('select song:', name)
   switch (name) {
     case 'GaoShanLiuShui':
       currentSong.value = audioGaoShanLiuShui.value

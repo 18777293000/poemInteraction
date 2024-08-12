@@ -9,7 +9,7 @@ import { useRouter } from 'vue-router'
 import MusicComponent from '@/renderer/components/MusicComponent.vue'
 
 const { locale, availableLocales } = useI18n()
-const { counterIncrease, setName } = useCounterStore()
+const { counterIncrease, setName, setloginDialogVisible } = useCounterStore()
 const { counter, name } = storeToRefs(useCounterStore())
 const theme = useTheme()
 const languages = ref(['en'])

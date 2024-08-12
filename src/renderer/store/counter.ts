@@ -4,9 +4,9 @@ export const useCounterStore = defineStore('counter', {
   state: () => ({
     counter: 1,
     loginDialogVisible: false,
-    name: 'yangming',
-    id: 'yj20230015',
-    college: '语言文化学院',
+    name: 'NaN',
+    id: 'NaN',
+    college: 'NaN',
     poetryLength: 0
   }),
   getters: {
