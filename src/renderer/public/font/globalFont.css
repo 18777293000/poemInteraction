@@ -1,4 +1,4 @@
 @font-face {
-  font-family: 'qiuhongkai' !important;
-  src: url('./qiuhongkai.ttf');
+  font-family: 'Qiuhongkai';
+  src: url('./qiuhongkai.woff2') format('woff2');
 }

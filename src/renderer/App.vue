@@ -22,4 +22,7 @@ body {
 .v-btn {
   text-transform: unset !important;
 }
+#app {
+  font-family: 'Qiuhongkai';
+}
 </style>
