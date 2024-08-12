@@ -4,7 +4,7 @@
       <v-col cols="12">
         <v-row>
           <v-col cols="12">
-            <div class="text-h2 font-weight-medium">飞花令</div>
+            <div class="feihua-title font-weight-medium">飞花令</div>
             <!-- &emsp;回合数{{ answerList.length + 1 }}:正确数{{answerList.filter(i => i === 1).length }} -->
           </v-col>
           <!-- style="z-index: 12;" 加上这个让幻灯片悬在排名之上 -->
@@ -13,17 +13,18 @@
               <v-carousel-item value="0" class="">
                 <div class="pa-6">
                   <div class="d-flex justify-center align-center error-border-inner">
-                    <div class="text-h3" style="color: #d50000">回答错误</div>
+                    <div class="feihua-h3" style="color: #d50000">回答错误</div>
                     <div><v-img class="" src="/images/jielong-error.png" width="130"></v-img></div>
                   </div>
                 </div>
               </v-carousel-item>
               <v-carousel-item value="1" class="">
                 <div class="d-flex flex-column justify-center mb-6">
-                  <div class="text-subtitle-1 ma-2 pa-2">系统给出一个关键字, 玩家要在90秒内想出并输入一句含有该字的诗句。</div>
-                  <div class="text-subtitle-1 ma-2 pa-2">如: 问题:请写出含有<span style="color: #00c853">"春"</span>的诗句：</div>
-                  <div class="text-subtitle-1 ma-2 pa-2">则回答：<span class="text-h5"
-                      style="color: #00c853"><u>春城无处不飞花</u></span>，即算正确，跳转到下个问题。
+                  <div class="feihua-subtitle-1 ma-2 pa-2">系统给出一个关键字, 玩家要在90秒内想出并输入一句含有该字的诗句。</div>
+                  <div class="feihua-subtitle-1 ma-2 pa-2">如: 问题:请写出含有<span
+                      style="color: #00c853;font-size: 2rem;">"春"</span>的诗句：</div>
+                  <div class="feihua-subtitle-1 ma-2 pa-2">则回答：<span
+                      style="color: #00c853;font-size: 2rem;"><u>春城无处不飞花</u></span>，即算正确，跳转到下个问题。
                   </div>
                 </div>
               </v-carousel-item>
@@ -49,7 +50,7 @@
           <v-col cols="3" class="">
             <v-progress-circular :color="colors[alertColor]" :model-value="time" :size="200" :width="10">
               <v-card v-show="!play" class="mx-auto rounded-circle bg-amber-lighten-4" height="140" width="140">
-                <div class="d-flex fill-height align-center justify-center text-h3 circle-background"
+                <div class="d-flex fill-height align-center justify-center feihua-h3 circle-background"
                   style="color: #1b5e20" @click="gamePlay">{{ startBtn }}</div>
               </v-card>
               <v-expand-x-transition>
@@ -66,16 +67,16 @@
                 <v-text-field v-model="answer" label="回答" class=""></v-text-field>
               </div>
               <div>
-                <v-btn prepend-icon="mdi-arrow-up-bold-box-outline" variant="tonal" block :disabled="btnDisabled" class="bg-amber-lighten-4"
-                  @click="handleAnswer">
+                <v-btn prepend-icon="mdi-arrow-up-bold-box-outline" variant="tonal" block :disabled="btnDisabled"
+                  class="bg-amber-lighten-4" @click="handleAnswer">
                   确认
                 </v-btn>
               </div>
             </section>
             <v-expand-x-transition>
               <v-card v-show="gameOver" class="bg-amber-lighten-4 mx-auto" height="140" width="300">
-                <div class="text-h4 pt-5">体验完成</div>
-                <div class="text-h5 pt-5">正确回答{{ answerList.filter((i) => i === 1).length }}题</div>
+                <div class="feihua-h4 pt-5">体验完成</div>
+                <div class="feihua-h5 pt-5">正确回答{{ answerList.filter((i) => i === 1).length }}题</div>
               </v-card>
             </v-expand-x-transition>
           </v-col>
@@ -234,7 +235,7 @@ const answerRight = (): void => {
   answer.value = ''
   fireWordEle.className = 'fireworks-animation'
   jielongRankRef.value.updateRank(answerList.value.filter((i) => i === 1).length)
-  if(answerList.value.length >= 10){
+  if (answerList.value.length >= 10) {
     overGame();
   }
 }
@@ -244,7 +245,7 @@ const answerError = (): void => {
   answer.value = ''
   fireWordEle.className = ''
   answerList.value.push(0)
-  if(answerList.value.length >= 10){
+  if (answerList.value.length >= 10) {
     overGame();
   }
 }
@@ -335,6 +336,45 @@ onBeforeUnmount((): void => {
 </script>
 
 <style scoped>
+.feihua-title {
+  font-size: 3.75rem !important;
+  line-height: 1;
+  letter-spacing: -0.0083333333em !important;
+  text-transform: none !important;
+}
+
+.feihua-h3 {
+  font-size: 3rem !important;
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+}
+
+.feihua-h4 {
+  font-size: 2.125rem !important;
+  font-weight: 400;
+  line-height: 1.175;
+  letter-spacing: 0.0073529412em !important;
+  text-transform: none !important;
+}
+
+.feihua-h5 {
+  font-size: 1.5rem !important;
+  font-weight: 400;
+  line-height: 1.333;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+}
+
+.feihua-subtitle-1 {
+  font-size: 1rem !important;
+  font-weight: normal;
+  line-height: 1.75;
+  letter-spacing: 0.009375em !important;
+  text-transform: none !important;
+}
+
 .feihua-background {
   font-family: 'qiuhongkai' !important;
   background-image: url('/images/background-feihua.jpg');

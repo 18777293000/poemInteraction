@@ -5,7 +5,7 @@
         <v-card-title class="text-center" style="color: #161823">起句</v-card-title>
 
         <v-card-text>
-          <div class="text-h4 text-center" style="color: #161823">{{ outputContent }}</div>
+          <div class="chat-h4 text-center" style="color: #161823">{{ outputContent }}</div>
         </v-card-text>
       </v-card>
     </div>
@@ -18,10 +18,8 @@
         <v-card-subtitle class=""></v-card-subtitle>
 
         <v-card-text>
-          <div class="text-h4"
-            ><span style="color: #ff3300">{{ getChar(true, outputContent) }}</span
-            >{{ getChar(false, outputContent) }}</div
-          >
+          <div class="chat-h4"><span style="color: #ff3300">{{ getChar(true, outputContent) }}</span>{{ getChar(false,
+            outputContent) }}</div>
         </v-card-text>
 
         <v-card-actions>
@@ -38,10 +36,8 @@
         <v-card-subtitle class=""></v-card-subtitle>
 
         <v-card-text>
-          <div class="text-h4"
-            ><span style="color: #40de5a">{{ getChar(true, outputContent) }}</span
-            >{{ getChar(false, outputContent) }}</div
-          >
+          <div class="chat-h4"><span style="color: #40de5a">{{ getChar(true, outputContent) }}</span>{{ getChar(false,
+            outputContent) }}</div>
         </v-card-text>
 
         <v-card-actions class="justify-end">
@@ -87,5 +83,13 @@ defineExpose({
 .chat-right {
   display: flex;
   justify-content: flex-end;
+}
+
+.chat-h4 {
+  font-size: 2.125rem !important;
+  font-weight: 400;
+  line-height: 1.175;
+  letter-spacing: 0.0073529412em !important;
+  text-transform: none !important;
 }
 </style>
