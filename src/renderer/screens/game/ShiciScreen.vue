@@ -14,12 +14,14 @@
     <v-row class="d-none">
       <v-btn color="primary">切换</v-btn>
     </v-row>
+    <music-component ref="shiCiMusicRef"></music-component>
   </v-container>
 </template>
 <script setup lang="ts">
 import { useCounterStore } from '@/renderer/store/counter'
 import { storeToRefs } from 'pinia'
 import { ref, onMounted, onBeforeUnmount } from 'vue'
+import MusicComponent from '@/renderer/components/MusicComponent.vue';
 
 const { counterIncrease, setPoetryLength } = useCounterStore()
 const { counter } = storeToRefs(useCounterStore())
@@ -30,9 +32,12 @@ const ShiciItem = ref({
   id: 18,
   title: '蝉二首 其一'
 })
+const shiCiMusicRef = ref();
 let timer: any = null
 
 onMounted((): void => {
+  shiCiMusicRef.value.selectSong('ChunJiangHuaYueYe');
+  shiCiMusicRef.value.play();
   window.mainApi.invoke('queryTableLength', 'poetry').then((res) => {
     // console.log('queryTableLength', res);
     setPoetryLength(res.count)
@@ -77,5 +82,6 @@ onBeforeUnmount(() => {
   background-image: url('images/background-shici.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  position: relative;
 }
 </style>

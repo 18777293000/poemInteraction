@@ -65,6 +65,7 @@
       </div>
     </div>
     <rank-component ref="rankRef"></rank-component>
+    <music-component ref="jieLongMusicRef"></music-component>
     <v-snackbar :timeout="3000" color="red-accent-3" elevation="24" v-model="snackbar">
       {{ errorMeg }}
     </v-snackbar>
@@ -76,6 +77,7 @@ import { onBeforeUnmount, onMounted, ref, nextTick, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import ChatComponent from '@/renderer/components/game/ChatComponent.vue'
 import RankComponent from '@/renderer/components/game/RankComponent.vue'
+import MusicComponent from '@/renderer/components/MusicComponent.vue'
 
 interface IPoem {
   dynasty: string
@@ -94,6 +96,7 @@ const snackbar: any = ref(false)
 const errorMeg: any = ref('没有查询到诗句! ! !')
 const startPoem: any = ref('')
 const progress: any = ref(0)
+const jieLongMusicRef = ref()
 const router = useRouter()
 const prePorm = ['悠然见南山', '山中一夜雨', '日色冷青松', '山月照弹琴', '书卷满床头']
 let preSentence: string = ''
@@ -141,6 +144,8 @@ watch(progress, (a: number, oldA: number) => {
 })
 
 onMounted(() => {
+  jieLongMusicRef.value.selectSong('YuGuangQu')
+  jieLongMusicRef.value.play()
   scrollTargetDom = document.getElementById('scroll-target')
   // 获取页面总高度
   pageDom = document.body

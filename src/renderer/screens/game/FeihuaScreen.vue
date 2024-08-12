@@ -9,13 +9,7 @@
           </v-col>
           <!-- style="z-index: 12;" 加上这个让幻灯片悬在排名之上 -->
           <v-col cols="12">
-            <v-carousel
-              v-model="currentPage"
-              :show-arrows="false"
-              height="300"
-              hide-delimiters
-              class=""
-            >
+            <v-carousel v-model="currentPage" :show-arrows="false" height="300" hide-delimiters class="">
               <v-carousel-item value="0" class="">
                 <div class="pa-6">
                   <div class="d-flex justify-center align-center error-border-inner">
@@ -26,16 +20,10 @@
               </v-carousel-item>
               <v-carousel-item value="1" class="">
                 <div class="d-flex flex-column justify-center mb-6">
-                  <div class="text-subtitle-1 ma-2 pa-2"
-                    >系统给出一个关键字, 玩家要在90秒内想出并输入一句含有该字的诗句。</div
-                  >
-                  <div class="text-subtitle-1 ma-2 pa-2"
-                    >如: 问题:请写出含有<span style="color: #00c853">"春"</span>的诗句：</div
-                  >
-                  <div class="text-subtitle-1 ma-2 pa-2"
-                    >则回答：<span class="text-h5" style="color: #00c853"
-                      ><u>春城无处不飞花</u></span
-                    >，即算正确，跳转到下个问题。
+                  <div class="text-subtitle-1 ma-2 pa-2">系统给出一个关键字, 玩家要在90秒内想出并输入一句含有该字的诗句。</div>
+                  <div class="text-subtitle-1 ma-2 pa-2">如: 问题:请写出含有<span style="color: #00c853">"春"</span>的诗句：</div>
+                  <div class="text-subtitle-1 ma-2 pa-2">则回答：<span class="text-h5"
+                      style="color: #00c853"><u>春城无处不飞花</u></span>，即算正确，跳转到下个问题。
                   </div>
                 </div>
               </v-carousel-item>
@@ -47,7 +35,7 @@
                     <h3>{{ completeShici.author }}</h3>
                     <p style="white-space: pre-line; margin-top: 4px">{{
                       addBreaksToPoem(completeShici.content)
-                    }}</p>
+                      }}</p>
                     <!-- <p v-for="(item, index) in slicePoem(completeShici.content)" :key="index">{{ item }}</p> -->
                   </div>
                 </div>
@@ -59,36 +47,15 @@
       <v-col cols="12" class="border-lg">
         <v-row align="center" justify="start" class="text-center">
           <v-col cols="3" class="border-lg">
-            <v-progress-circular
-              :color="colors[alertColor]"
-              :model-value="time"
-              :size="200"
-              :width="10"
-            >
-              <v-card
-                v-show="!play"
-                class="mx-auto rounded-circle bg-amber-lighten-4"
-                height="140"
-                width="140"
-              >
-                <div
-                  class="d-flex fill-height align-center justify-center text-h3 circle-background"
-                  style="color: #1b5e20"
-                  @click="gamePlay"
-                  >{{ startBtn }}</div
-                >
+            <v-progress-circular :color="colors[alertColor]" :model-value="time" :size="200" :width="10">
+              <v-card v-show="!play" class="mx-auto rounded-circle bg-amber-lighten-4" height="140" width="140">
+                <div class="d-flex fill-height align-center justify-center text-h3 circle-background"
+                  style="color: #1b5e20" @click="gamePlay">{{ startBtn }}</div>
               </v-card>
               <v-expand-x-transition>
-                <v-card
-                  v-show="play"
-                  class="mx-auto rounded-circle bg-amber-lighten-4"
-                  height="140"
-                  width="140"
-                >
-                  <div
-                    class="d-flex fill-height align-center justify-center text-h1 circle-background"
-                    >{{ currentChart }}</div
-                  >
+                <v-card v-show="play" class="mx-auto rounded-circle bg-amber-lighten-4" height="140" width="140">
+                  <div class="d-flex fill-height align-center justify-center text-h1 circle-background">{{ currentChart
+                    }}</div>
                 </v-card>
               </v-expand-x-transition>
             </v-progress-circular>
@@ -99,13 +66,8 @@
                 <v-text-field v-model="answer" label="回答" class=""></v-text-field>
               </div>
               <div>
-                <v-btn
-                  prepend-icon="mdi-arrow-up-bold-box-outline"
-                  variant="tonal"
-                  block
-                  class="bg-amber-lighten-4"
-                  @click="handleAnswer"
-                >
+                <v-btn prepend-icon="mdi-arrow-up-bold-box-outline" variant="tonal" block class="bg-amber-lighten-4"
+                  @click="handleAnswer">
                   确认
                 </v-btn>
               </div>
@@ -113,32 +75,27 @@
             <v-expand-x-transition>
               <v-card v-show="gameOver" class="bg-amber-lighten-4 mx-auto" height="140" width="300">
                 <div class="text-h4 pt-5">体验完成</div>
-                <div class="text-h5 pt-5"
-                  >正确回答{{ answerList.filter((i) => i === 1).length }}题</div
-                >
+                <div class="text-h5 pt-5">正确回答{{ answerList.filter((i) => i === 1).length }}题</div>
               </v-card>
             </v-expand-x-transition>
           </v-col>
         </v-row>
         <v-row class="d-none">
-          <v-progress-linear
-            buffer-value="30"
-            color="orange"
-            model-value="20"
-            stream
-          ></v-progress-linear>
+          <v-progress-linear buffer-value="30" color="orange" model-value="20" stream></v-progress-linear>
         </v-row>
       </v-col>
     </v-row>
     <div id="fireworks"><img src="/images/fireworks.png" alt="" /></div>
     <rank-component ref="jielongRankRef"></rank-component>
+    <music-component ref="feiHuaMusicRef"></music-component>
   </v-container>
 </template>
 <script setup lang="ts">
-import { ref, onBeforeUnmount } from 'vue'
+import { ref, onBeforeUnmount, onMounted } from 'vue'
 import { useCounterStore } from '@/renderer/store/counter'
-import RankComponent from '@/renderer/components/game/RankComponent.vue'
 import { useRouter } from 'vue-router'
+import RankComponent from '@/renderer/components/game/RankComponent.vue'
+import MusicComponent from '@/renderer/components/MusicComponent.vue'
 
 const characters = [
   '人',
@@ -212,10 +169,16 @@ const currentChart = ref('')
 const currentPage = ref(1)
 const answerList: any = ref([])
 const jielongRankRef: any = ref()
+const feiHuaMusicRef = ref()
 //  回答正确的回合
 const gameOver: any = ref(false)
 let timer: any = null
 let fireWordEle: any = {}
+
+onMounted(() => {
+  feiHuaMusicRef.value.selectSong('QianNianFengYa')
+  feiHuaMusicRef.value.play()
+})
 
 const gamePlay = (): void => {
   play.value = !play.value
@@ -436,6 +399,7 @@ onBeforeUnmount((): void => {
 }
 
 @keyframes clippath {
+
   0%,
   100% {
     clip-path: inset(0 0 98% 0);
