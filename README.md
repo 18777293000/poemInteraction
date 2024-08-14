@@ -5,6 +5,7 @@
 ```bash
 yarn config set electron_mirror https://mirrors.huaweicloud.com/electron/
 npm config set electron_mirror https://mirrors.huaweicloud.com/electron/
+npm config set ELECTRON_MIRROR https://npmmirror.com/mirrors/electron/
 ```
 
 npm镜像源配置推荐

@@ -44,9 +44,9 @@ onMounted(() => {
 const play = () => {
   // console.log('audio:', currentSong.value)
   musicBtnDom.classList.add('play')
-  // if (currentSong.value) {
-  //   currentSong.value.play()
-  // }
+  if (currentSong.value) {
+    currentSong.value.play()
+  }
 }
 
 const pause = () => {
