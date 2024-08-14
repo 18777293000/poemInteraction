@@ -1,6 +1,6 @@
 <template>
   <v-container class="fill-height justify-center reword-background">
-    <div class="reword-contain">
+    <div class="reword-contain border-lg">
       <img class="reword-img" :src="round >= 1 ? `/images/rank/${round}.png` : ''" />
       <v-img class="position-relative" width="58vw" src="/images/bonus.jpg">
         <div class="position-absolute reword-name">

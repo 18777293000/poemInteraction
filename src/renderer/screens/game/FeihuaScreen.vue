@@ -11,10 +11,10 @@
           <v-col cols="12">
             <v-carousel
               v-model="currentPage"
-              show-arrows="hover"
+              :show-arrows="false"
               :height="height"
               hide-delimiters
-              class="border-lg"
+              class=""
             >
               <v-carousel-item value="0" class="">
                 <div class="pa-6">
@@ -212,7 +212,7 @@ const time = ref(100)
 const alertColor = ref(0)
 const answer = ref('')
 const currentChart = ref('')
-const currentPage = ref(2)
+const currentPage = ref(1)
 const answerList: any = ref([])
 const jielongRankRef: any = ref()
 const feiHuaMusicRef = ref()
