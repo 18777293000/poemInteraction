@@ -17,6 +17,7 @@ npm config set registry https://repo.huaweicloud.com/repository/npm/
 # 启动
 
 ```bash
+根目录下创建一个config文件夹，将poetry.db放进去
 yarn/npm run dev 本地启动
 
 yarn/npm run build:dir 构建未压缩可执行文件
