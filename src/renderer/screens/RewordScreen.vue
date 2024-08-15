@@ -1,6 +1,6 @@
 <template>
   <v-container class="fill-height justify-center reword-background">
-    <div class="reword-contain border-lg">
+    <div v-show="round >= 1" class="reword-contain">
       <img class="reword-img" :src="round >= 1 ? `/images/rank/${round}.png` : ''" />
       <v-img class="position-relative" width="58vw" src="/images/bonus.jpg">
         <div class="position-absolute reword-name">
@@ -8,6 +8,10 @@
         </div>
       </v-img>
     </div>
+    <div v-show="round < 1" class="reword-contain">
+      <v-img class="position-relative" width="50vw" src="/images/fight.jpg"></v-img>
+    </div>
+
     <music-component ref="rewordMusicRef"></music-component>
   </v-container>
 </template>
@@ -21,7 +25,9 @@ const { name } = storeToRefs(useCounterStore())
 const route = useRoute()
 const round: any = ref(0)
 const rewordMusicRef = ref()
-round.value = Number(route.query.round)
+console.log(route.query)
+round.value = Number(route.query.round) || 0
+console.log(round.value)
 
 onMounted(() => {
   rewordMusicRef.value.selectSong('YuZhouChangWan')

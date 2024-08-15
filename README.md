@@ -6,6 +6,7 @@
 yarn config set electron_mirror https://mirrors.huaweicloud.com/electron/
 npm config set electron_mirror https://mirrors.huaweicloud.com/electron/
 npm config set ELECTRON_MIRROR https://npmmirror.com/mirrors/electron/
+关于ELECTRON_MIRROR设置，也可以在C:\Users\用户名\目录下找到.npmrc，直接添加ELECTRON_MIRROR=https://npmmirror.com/mirrors/electron/
 ```
 
 npm镜像源配置推荐

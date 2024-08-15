@@ -108,7 +108,7 @@
                   class="bg-amber-lighten-4"
                   @click="handleAnswer"
                 >
-                  确认
+                  回答
                 </v-btn>
               </div>
             </section>
