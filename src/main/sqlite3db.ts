@@ -39,6 +39,14 @@ function createDataTable() {
             author TEXT NOT NULL COLLATE NOCASE CHECK(LENGTH(author) <= 100),
             content TEXT COLLATE NOCASE);
         `)
+          db.run(`
+            CREATE TABLE IF NOT EXISTS students (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            student_id TEXT NOT NULL,
+            college TEXT NOT NULL
+            );
+        `);
     // db.run('create table if not exists ')
   })
   //db.close();
