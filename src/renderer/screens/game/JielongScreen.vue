@@ -50,13 +50,7 @@
           </v-btn>
         </section>
         <v-expand-x-transition>
-          <v-card
-            v-show="finish"
-            class="mx-auto"
-            subtitle="用时xx分钟"
-            title="挑战结束"
-            color="#eacd76"
-          >
+          <v-card v-show="finish" class="mx-auto" subtitle="" title="挑战结束" color="#eacd76">
             <template v-slot:append>
               <v-icon color="success" icon="mdi-check"></v-icon>
             </template>
