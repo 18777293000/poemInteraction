@@ -10,7 +10,9 @@ console.log('database path:', DB_PATH)
 // 判断是否是正式环境
 if (app.isPackaged) {
   // 正式环境
-  DB_PATH = path.join(path.dirname(app.getPath('exe')), '/config/poetry.db')
+  // DB_PATH = path.join(path.dirname(app.getPath('exe')), '/config/poetry.db')
+  DB_PATH = path.resolve('./resources/config/poetry.db')
+  console.log('DB_PATH8888888888888888888888888', DB_PATH)
 }
 
 //连接数据库
@@ -30,11 +32,11 @@ function createDataTable() {
   //创建用户表
   db.serialize(function () {
     db.run(`
-            CREATE TABLE IF NOT EXISTS poetry (  
-            id INTEGER PRIMARY KEY AUTOINCREMENT,  
-            title TEXT NOT NULL COLLATE NOCASE CHECK(LENGTH(title) <= 200),  
-            dynasty TEXT NOT NULL COLLATE NOCASE CHECK(LENGTH(dynasty) <= 50),  
-            author TEXT NOT NULL COLLATE NOCASE CHECK(LENGTH(author) <= 100),  
+            CREATE TABLE IF NOT EXISTS poetry (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT NOT NULL COLLATE NOCASE CHECK(LENGTH(title) <= 200),
+            dynasty TEXT NOT NULL COLLATE NOCASE CHECK(LENGTH(dynasty) <= 50),
+            author TEXT NOT NULL COLLATE NOCASE CHECK(LENGTH(author) <= 100),
             content TEXT COLLATE NOCASE);
         `)
     // db.run('create table if not exists ')

@@ -1,6 +1,7 @@
 /* eslint-disable no-template-curly-in-string */
 const dotenv = require('dotenv')
-
+console.log('dotenv', dotenv)
+// console.log('1', `${productName}`)
 const baseConfig = {
   productName: 'PoemInteract',
   appId: 'com.jut.sclct',
@@ -8,8 +9,14 @@ const baseConfig = {
   extends: null,
   compression: 'maximum',
   artifactName: '${productName} ${version}_${arch}.${ext}',
+  // artifactName: 'artifactName',
   directories: {
+    // output: './release'
     output: './release/${version}'
+  },
+  extraResources: {
+    from: './config/',
+    to: 'config'
   },
   mac: {
     bundleVersion: '1.0',
@@ -64,6 +71,7 @@ const baseConfig = {
   },
   portable: {
     artifactName: '${productName} ${version}_${arch} Portable.${ext}'
+    // artifactName: 'test'
   },
   nsis: {
     oneClick: true
@@ -91,6 +99,7 @@ const baseConfig = {
 
 dotenv.config()
 
+// baseConfig.copyright = `ⓒ ${new Date().getFullYear()}`
 baseConfig.copyright = `ⓒ ${new Date().getFullYear()} $\{author}`
 baseConfig.files = [
   /* A list of files not to be included in the build. */

@@ -61,10 +61,10 @@ export default class IPCs {
       return new Promise((resolve, reject) => {
         sqlite3db.db.all(
           `
-          SELECT *  
-          FROM poetry  
-          WHERE content LIKE '%${word}%'  
-          ORDER BY id ASC  
+          SELECT *
+          FROM poetry
+          WHERE content LIKE '%${word}%'
+          ORDER BY id ASC
           LIMIT 1;
           `,
           [],
@@ -105,8 +105,8 @@ export default class IPCs {
     ipcMain.handle('queryByLastWord', async (event: IpcMainEvent, word: string) => {
       return new Promise((resolve, reject) => {
         sqlite3db.db.all(
-          `SELECT *  
-                          FROM poetry  
+          `SELECT *
+                          FROM poetry
                           WHERE content LIKE '%${word}%';
                           `,
           (err, rows) => {

@@ -11,6 +11,7 @@
         {{ addBreaksToPoem(ShiciItem.content) }}
       </v-col>
     </v-row>
+    <!-- <div>{{ resultRes }}</div> -->
     <v-row class="d-none">
       <v-btn color="primary">切换</v-btn>
     </v-row>
@@ -46,9 +47,10 @@ onMounted((): void => {
     }, 8000)
   })
 })
-
+const resultRes = ref()
 const getTableLength = () => {
   window.mainApi.invoke('queryById', counter.value).then((res) => {
+    resultRes.value = res
     if (res.length === 1) {
       ShiciItem.value.author = res[0].author
       ShiciItem.value.content = res[0].content

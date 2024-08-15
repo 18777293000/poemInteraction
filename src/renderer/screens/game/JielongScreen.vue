@@ -1,7 +1,13 @@
 <template>
   <v-container class="fill-height flex-column jielong-background">
-    <v-progress-linear color="light-green-accent-4" height="10" rounded :model-value="progress" striped
-      :indeterminate="progress === 0"></v-progress-linear>
+    <v-progress-linear
+      color="light-green-accent-4"
+      height="10"
+      rounded
+      :model-value="progress"
+      striped
+      :indeterminate="progress === 0"
+    ></v-progress-linear>
     <div id="scroll-target" class="overflow-y-auto pa-10">
       <!-- v-scroll:#scroll-target="onScroll" -->
       <v-card class="mx-auto" prepend-icon="mdi-apps" subtitle="规则介绍" width="600">
@@ -10,27 +16,47 @@
         </template>
 
         <v-card-text class="bg-surface-light pt-4">
-          <div>系统会给出一句诗，答题要答出一句该字开头的诗句，并以句尾作为下一句的开头，共10题。</div>
+          <div
+            >系统会给出一句诗，答题要答出一句该字开头的诗句，并以句尾作为下一句的开头，共10题。</div
+          >
           <div>如： 问题：请写出首字为"一"的诗句：</div>
           <div>则回答： <u>一声梧叶一声秋</u>，即算正确，</div>
           <div>下个问题需要以“秋”字为首，回答：<u>秋风起兮白云飞</u>，下同。</div>
         </v-card-text>
       </v-card>
       <chat-component :type="0" :content="startPoem"></chat-component>
-      <chat-component v-for="(item, index) in chatLists" :key="index" :type="item.type" :content="item.content"
-        :title="item.title" :round="item.round" :id="item.id"></chat-component>
+      <chat-component
+        v-for="(item, index) in chatLists"
+        :key="index"
+        :type="item.type"
+        :content="item.content"
+        :title="item.title"
+        :round="item.round"
+        :id="item.id"
+      ></chat-component>
     </div>
     <div id="scroll-btn">
       <div class="pt-3" style="min-width: 600px">
         <section v-show="!finish">
           <v-text-field v-model="answer" label="回答" class=""></v-text-field>
-          <v-btn prepend-icon="mdi-arrow-up-bold-box-outline" variant="tonal" block class="bg-amber-lighten-4"
-            @click="handleAnswer">
+          <v-btn
+            prepend-icon="mdi-arrow-up-bold-box-outline"
+            variant="tonal"
+            block
+            class="bg-amber-lighten-4"
+            @click="handleAnswer"
+          >
             确认
           </v-btn>
         </section>
         <v-expand-x-transition>
-          <v-card v-show="finish" class="mx-auto" subtitle="用时xx分钟" title="挑战结束" color="#eacd76">
+          <v-card
+            v-show="finish"
+            class="mx-auto"
+            subtitle="用时xx分钟"
+            title="挑战结束"
+            color="#eacd76"
+          >
             <template v-slot:append>
               <v-icon color="success" icon="mdi-check"></v-icon>
             </template>
@@ -168,7 +194,6 @@ const startProgress = (): void => {
       }, 3000)
     }
   }
-
 }
 
 const handleAnswer = (): void => {
