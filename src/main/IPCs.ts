@@ -1,7 +1,8 @@
 import { ipcMain, shell, IpcMainEvent, dialog } from 'electron'
 import Constants from './utils/Constants'
 import sqlite3db from './sqlite3db'
-
+const path = require('path')
+const { app } = require('electron')
 /*
  * IPC Communications
  * */
@@ -15,6 +16,10 @@ export default class IPCs {
     // Open url via web browser
     ipcMain.on('msgOpenExternalLink', async (event: IpcMainEvent, url: string) => {
       await shell.openExternal(url)
+    })
+
+    ipcMain.handle('resolveImgPath', async (event: IpcMainEvent, Imgpath: string) => {
+      return Constants.IS_DEV_ENV ? Imgpath : path.join(app.getAppPath(), '/dist', Imgpath)
     })
 
     // Open file
@@ -45,34 +50,31 @@ export default class IPCs {
         })
       })
     })
-// 添加用户
-ipcMain.handle('add-user', async (event: IpcMainEvent, { name, student_id, college }) => {
-  return new Promise((resolve, reject) => {
-    const insertSql = 'INSERT INTO students (name, student_id, college) VALUES (?,?,?)';
-    sqlite3db.db.run(insertSql, [name, student_id, college], function (err) {
-      if (err) {
-        return reject(err);
-      }
-      resolve('Item added successfully.');
-    });
-  });
-});
+    // 添加用户
+    ipcMain.handle('add-user', async (event: IpcMainEvent, { name, student_id, college }) => {
+      return new Promise((resolve, reject) => {
+        const insertSql = 'INSERT INTO students (name, student_id, college) VALUES (?,?,?)'
+        sqlite3db.db.run(insertSql, [name, student_id, college], function (err) {
+          if (err) {
+            return reject(err)
+          }
+          resolve('Item added successfully.')
+        })
+      })
+    })
 
-// 查询所有用户
-ipcMain.handle('get-all-users', async (event: IpcMainEvent) => {
-  return new Promise((resolve, reject) => {
-    const querySql = 'SELECT * FROM students';
-    sqlite3db.db.all(querySql, [], (err, rows) => {
-      if (err) {
-        return reject(err);
-      }
-      resolve(rows);
-    });
-  });
-});
-
-
-
+    // 查询所有用户
+    ipcMain.handle('get-all-users', async (event: IpcMainEvent) => {
+      return new Promise((resolve, reject) => {
+        const querySql = 'SELECT * FROM students'
+        sqlite3db.db.all(querySql, [], (err, rows) => {
+          if (err) {
+            return reject(err)
+          }
+          resolve(rows)
+        })
+      })
+    })
 
     ipcMain.handle('delete-item', async (event: IpcMainEvent, id) => {
       return new Promise((resolve, reject) => {

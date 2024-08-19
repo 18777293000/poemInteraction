@@ -10,6 +10,11 @@ export default class Utils {
   static async openFile(type: string): Promise<any> {
     return window.mainApi.invoke('msgOpenFile', type)
   }
+
+  static resolvePath(dirPath: any): Promise<any> {
+    // return path.join(Utils.startPath, dirPath || '.')
+    return window.mainApi.invoke('resolveImgPath', dirPath)
+  }
 }
 
-export const { getCurrentLocale, openExternal, openFile } = Utils
+export const { getCurrentLocale, openExternal, openFile, resolvePath } = Utils

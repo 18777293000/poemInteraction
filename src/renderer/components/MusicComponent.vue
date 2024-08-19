@@ -10,7 +10,7 @@
       id="music-btn"
       class="music-btn"
       @click="onClick"
-      image="/images/music-icon.png"
+      :image="musicAvatorPath"
       size="80"
     ></v-avatar>
   </div>
@@ -18,6 +18,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { resolvePath } from '@/renderer/utils'
 
 interface Song {
   id: number
@@ -34,12 +35,24 @@ const audioQianNianFengYa = ref<HTMLAudioElement | null>(null)
 const audioYuGuangQu = ref<HTMLAudioElement | null>(null)
 const audioYuZhouChangWan = ref<HTMLAudioElement | null>(null)
 
+const musicAvatorPath = ref('/images/music-icon.png')
+
 let musicBtnDom: any = null
 let ifPlay: boolean = true
 
 onMounted(() => {
   musicBtnDom = document.getElementById('music-btn')
+  resolveImgPath(musicAvatorPath.value)
 })
+
+const resolveImgPath = (path: string): void => {
+  resolvePath(path).then((res) => {
+    if (res) {
+      musicAvatorPath.value = res
+      console.log('path', res)
+    }
+  })
+}
 
 const play = () => {
   // console.log('audio:', currentSong.value)
