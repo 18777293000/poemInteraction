@@ -20,7 +20,13 @@
                 <div class="pa-6">
                   <div class="d-flex justify-center align-center error-border-inner">
                     <div class="feihua-h3" style="color: #d50000">回答错误</div>
-                    <div><v-img class="" :src="resolvePath('/images/jielong-error.png')" width="130"></v-img></div>
+                    <div
+                      ><v-img
+                        class=""
+                        :src="resolvePath('/images/jielong-error.png')"
+                        width="130"
+                      ></v-img
+                    ></div>
                   </div>
                 </div>
               </v-carousel-item>

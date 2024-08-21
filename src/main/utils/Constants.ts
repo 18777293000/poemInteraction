@@ -18,6 +18,7 @@ export default class Constants {
     nodeIntegration: false,
     contextIsolation: true,
     enableRemoteModule: false,
+    webSecurity: false,
     preload: join(__dirname, '../preload/index.js')
   }
 

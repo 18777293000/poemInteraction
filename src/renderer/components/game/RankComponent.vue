@@ -48,7 +48,7 @@
 </template>
 <script setup lang="ts">
 import { ref, defineExpose, nextTick } from 'vue'
-import { resolvePath } from '@/renderer/utils';
+import { resolvePath } from '@/renderer/utils'
 const props = defineProps(['rank'])
 const outputRank = ref(1)
 const rankItems = document.getElementsByClassName('rank-item')

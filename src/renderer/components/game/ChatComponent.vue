@@ -1,7 +1,7 @@
 <template>
   <div class="chat-contain">
     <div v-if="outputType === 0" class="chat-start pt-3">
-      <v-card class="" color="#758a99" image="/images/chat-start.jpg">
+      <v-card class="" color="#758a99" :image="resolvePath('/images/chat-start.jpg')">
         <v-card-title class="text-center" style="color: #161823">起句</v-card-title>
 
         <v-card-text>
@@ -11,7 +11,12 @@
     </div>
     <div v-if="outputType === 1" class="chat-left pt-3">
       <v-card class="" max-width="400">
-        <v-img class="align-end text-white" height="50" src="/images/chat-left.png" cover>
+        <v-img
+          class="align-end text-white"
+          height="50"
+          :src="resolvePath('/images/chat-left.png')"
+          cover
+        >
           <v-card-title>第{{ outputRound }}回合</v-card-title>
         </v-img>
 
@@ -31,7 +36,12 @@
     </div>
     <div v-if="outputType === 2" class="chat-right pt-3">
       <v-card class="text-end" min-width="400">
-        <v-img class="align-end text-white" height="50" src="/images/chat-right.png" cover>
+        <v-img
+          class="align-end text-white"
+          height="50"
+          :src="resolvePath('/images/chat-right.png')"
+          cover
+        >
           <v-card-title>第{{ outputRound }}回合</v-card-title>
         </v-img>
 
@@ -54,6 +64,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { resolvePath } from '@/renderer/utils'
 const props = defineProps(['type', 'content', 'title', 'round', 'id'])
 const outputType: any = ref(0)
 const outputContent: any = ref('')

@@ -81,7 +81,7 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .shici-background {
-  background-image: url('images/background-shici.jpg');
+  background-image: url('/images/background-shici.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
