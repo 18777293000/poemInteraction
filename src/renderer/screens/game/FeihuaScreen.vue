@@ -20,7 +20,7 @@
                 <div class="pa-6">
                   <div class="d-flex justify-center align-center error-border-inner">
                     <div class="feihua-h3" style="color: #d50000">回答错误</div>
-                    <div><v-img class="" src="/images/jielong-error.png" width="130"></v-img></div>
+                    <div><v-img class="" :src="resolvePath('/images/jielong-error.png')" width="130"></v-img></div>
                   </div>
                 </div>
               </v-carousel-item>
@@ -132,7 +132,7 @@
         </v-row>
       </v-col>
     </v-row>
-    <div id="fireworks"><img src="/images/fireworks.png" alt="" /></div>
+    <div id="fireworks"><img :src="resolvePath('/images/fireworks.png')" alt="" /></div>
     <rank-component ref="jielongRankRef"></rank-component>
     <music-component ref="feiHuaMusicRef"></music-component>
   </v-container>
@@ -143,6 +143,7 @@ import { useCounterStore } from '@/renderer/store/counter'
 import { useRouter } from 'vue-router'
 import RankComponent from '@/renderer/components/game/RankComponent.vue'
 import MusicComponent from '@/renderer/components/MusicComponent.vue'
+import { resolvePath } from '@/renderer/utils'
 
 const characters = [
   '人',

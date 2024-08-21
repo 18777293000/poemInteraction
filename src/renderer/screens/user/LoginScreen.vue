@@ -6,7 +6,7 @@
         text=""
         title="用户登录"
         class="login-card"
-        image="/images/zhongLou.jpg"
+        :image="resolvePath('/images/zhongLou.jpg')"
       >
         <v-card-text>
           <v-row dense>
@@ -41,6 +41,7 @@ import { ref, reactive, onMounted } from 'vue'
 import { useCounterStore } from '@/renderer/store/counter'
 import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
+import { resolvePath } from '@/renderer/utils'
 
 const { setloginDialogVisible, setName, setId, setCollege } = useCounterStore()
 const { loginDialogVisible } = storeToRefs(useCounterStore())

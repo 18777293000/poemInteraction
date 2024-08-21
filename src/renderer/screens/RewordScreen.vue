@@ -1,15 +1,15 @@
 <template>
   <v-container class="fill-height justify-center reword-background">
     <div v-show="round >= 1" class="reword-contain">
-      <img class="reword-img" :src="round >= 1 ? `/images/rank/${round}.png` : ''" />
-      <v-img class="position-relative" width="58vw" src="/images/bonus.jpg">
+      <img class="reword-img" :src="round >= 1 ? resolvePath(`/images/rank/${round}.png`) : ''" />
+      <v-img class="position-relative" width="58vw" :src="resolvePath('/images/bonus.jpg')">
         <div class="position-absolute reword-name">
           {{ name }}
         </div>
       </v-img>
     </div>
     <div v-show="round < 1" class="reword-contain">
-      <v-img class="position-relative" width="50vw" src="/images/fight.jpg"></v-img>
+      <v-img class="position-relative" width="50vw" :src="resolvePath('/images/fight.jpg')"></v-img>
     </div>
 
     <music-component ref="rewordMusicRef"></music-component>
@@ -21,6 +21,7 @@ import { storeToRefs } from 'pinia'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import MusicComponent from '../components/MusicComponent.vue'
+import { resolvePath } from '../utils'
 const { name } = storeToRefs(useCounterStore())
 const route = useRoute()
 const round: any = ref(0)
