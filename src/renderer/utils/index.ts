@@ -1,4 +1,7 @@
 export default class Utils {
+  private static isDev: string = 'prod'
+  constructor() {}
+
   static getCurrentLocale(): string {
     return navigator?.language?.split('-')[0] || 'en'
   }
@@ -11,9 +14,9 @@ export default class Utils {
     return window.mainApi.invoke('msgOpenFile', type)
   }
 
-  static resolvePath(dirPath: any): Promise<any> {
-    // return path.join(Utils.startPath, dirPath || '.')
-    return window.mainApi.invoke('resolveImgPath', dirPath)
+  static resolvePath(dirPath: string): string {
+    const res = Utils.isDev === 'dev' ? dirPath : '../dist' + dirPath
+    return res
   }
 }
 

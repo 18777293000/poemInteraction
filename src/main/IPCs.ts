@@ -1,8 +1,6 @@
 import { ipcMain, shell, IpcMainEvent, dialog } from 'electron'
 import Constants from './utils/Constants'
 import sqlite3db from './sqlite3db'
-const path = require('path')
-const { app } = require('electron')
 /*
  * IPC Communications
  * */
@@ -16,10 +14,6 @@ export default class IPCs {
     // Open url via web browser
     ipcMain.on('msgOpenExternalLink', async (event: IpcMainEvent, url: string) => {
       await shell.openExternal(url)
-    })
-
-    ipcMain.handle('resolveImgPath', async (event: IpcMainEvent, Imgpath: string) => {
-      return Constants.IS_DEV_ENV ? Imgpath : path.join(app.getAppPath(), '/dist', Imgpath)
     })
 
     // Open file
