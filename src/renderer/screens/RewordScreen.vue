@@ -1,7 +1,7 @@
 <template>
   <v-container class="fill-height justify-center reword-background">
     <div v-show="round >= 1" class="reword-contain">
-      <img class="reword-img" :src="round >= 1 ? resolvePath(`/images/rank/${round}.png`) : ''" />
+      <img class="reword-img" :src="round >= 1 ? resolvePath(`/images/rank/${round}.gif`) : ''" />
       <v-img class="position-relative" width="58vw" :src="resolvePath('/images/bonus.jpg')">
         <div class="position-absolute reword-name">
           {{ name }}

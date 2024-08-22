@@ -23,7 +23,7 @@
                     <div
                       ><v-img
                         class=""
-                        :src="resolvePath('/images/jielong-error.png')"
+                        :src="resolvePath('/images/jielong-error.gif')"
                         width="130"
                       ></v-img
                     ></div>
