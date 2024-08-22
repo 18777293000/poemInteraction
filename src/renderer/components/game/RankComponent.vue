@@ -2,42 +2,42 @@
   <div class="rank-contain">
     <div v-show="outputRank > 1" class="rank-item item1 text-center">
       <div class="rank-item-title" style="color: #00454e">诗词小白</div>
-      <img class="rank-img" :src="resolvePath('/images/rank/1.gif')" />
+      <img class="rank-img" :src="resolvePath('/images/rank/9.gif')" />
     </div>
     <div v-show="outputRank > 2" class="rank-item item2 text-center">
       <div class="rank-item-title" style="color: #12575e">童生</div>
 
-      <img class="rank-img" :src="resolvePath('/images/rank/2.gif')" />
+      <img class="rank-img" :src="resolvePath('/images/rank/9.gif')" />
     </div>
     <div v-show="outputRank > 3" class="rank-item item3 text-center">
       <div class="rank-item-title" style="color: #294e7c">秀才</div>
 
-      <img class="rank-img" :src="resolvePath('/images/rank/3.gif')" />
+      <img class="rank-img" :src="resolvePath('/images/rank/9.gif')" />
     </div>
     <div v-show="outputRank > 4" class="rank-item item4 text-center">
       <div class="rank-item-title" style="color: #b28250">举人</div>
 
-      <img class="rank-img" :src="resolvePath('/images/rank/4.gif')" />
+      <img class="rank-img" :src="resolvePath('/images/rank/9.gif')" />
     </div>
     <div v-show="outputRank > 5" class="rank-item item5 text-center">
       <div class="rank-item-title" style="color: #5f98b3">贡士</div>
 
-      <img class="rank-img" :src="resolvePath('/images/rank/5.gif')" />
+      <img class="rank-img" :src="resolvePath('/images/rank/9.gif')" />
     </div>
     <div v-show="outputRank > 6" class="rank-item item6 text-center">
       <div class="rank-item-title" style="color: #625078">进士</div>
 
-      <img class="rank-img" :src="resolvePath('/images/rank/6.gif')" />
+      <img class="rank-img" :src="resolvePath('/images/rank/9.gif')" />
     </div>
     <div v-show="outputRank > 7" class="rank-item item7 text-center">
       <div class="rank-item-title" style="color: #15141c">探花</div>
 
-      <img class="rank-img" :src="resolvePath('/images/rank/7.gif')" />
+      <img class="rank-img" :src="resolvePath('/images/rank/9.gif')" />
     </div>
     <div v-show="outputRank > 8" class="rank-item item8 text-center">
       <div class="rank-item-title" style="color: #922d28">榜眼</div>
 
-      <img class="rank-img" :src="resolvePath('/images/rank/8.gif')" />
+      <img class="rank-img" :src="resolvePath('/images/rank/9.gif')" />
     </div>
     <div v-show="outputRank > 9" class="rank-item item9 text-center">
       <div class="rank-item-title" style="color: #cba264">状元</div>
