@@ -20,15 +20,17 @@ const isCurrentRoute = (path: string): boolean => {
       <v-btn
         prepend-icon="mdi-home"
         variant="text"
+        class="header-btn"
         :class="{ active: isCurrentRoute('/') }"
         @click="handleRoute('/')"
       >
         <!-- {{ $t('title.main') }} -->
-        诗词展示
+        首页
       </v-btn>
       <v-btn
         prepend-icon="mdi-fit-to-screen-outline"
         variant="text"
+        class="d-none header-btn"
         :class="{ active: isCurrentRoute('/second') }"
         @click="handleRoute('/second')"
       >
@@ -46,7 +48,10 @@ const isCurrentRoute = (path: string): boolean => {
   opacity: 1 !important;
 }
 .header-background {
-  /* background-image: url('/images/background-title.png') !important; */
+  background-image: url('/images/background-title.png') !important;
   background-position: 100% auto;
+}
+.header-btn {
+  font-size: 1.6rem;
 }
 </style>

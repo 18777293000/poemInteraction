@@ -15,9 +15,9 @@
           <span class="font-weight-black">欢迎体验诗词接龙活动</span>
         </template>
 
-        <v-card-text class="bg-surface-light pt-4">
+        <v-card-text class="bg-surface-light pt-4 jielong-introduce">
           <div
-            >系统会给出一句诗，答题要答出一句该字开头的诗句，并以句尾作为下一句的开头，共10题。</div
+            >与人机对诗，人机会给出一句诗，选手要答出一句该字开头的诗句，并以句尾作为下一句的开头，共10题。</div
           >
           <div>如： 问题：请写出首字为"一"的诗句：</div>
           <div>则回答： <u>一声梧叶一声秋</u>，即算正确，</div>
@@ -37,13 +37,13 @@
     </div>
     <div id="scroll-btn">
       <div class="pt-3" style="min-width: 600px">
-        <section v-show="!finish">
-          <v-text-field v-model="answer" label="回答" class=""></v-text-field>
+        <section v-show="!finish" style="border: 2px solid #0eb83a;border-radius: 10px;padding: 4px;">
+          <v-text-field v-model="answer" label="回答"></v-text-field>
           <v-btn
             prepend-icon="mdi-arrow-up-bold-box-outline"
             variant="tonal"
             block
-            class="bg-amber-lighten-4"
+            class="bg-amber-lighten-4 jielong-btn"
             @click="handleAnswer"
           >
             确认
@@ -63,6 +63,9 @@
     <v-snackbar :timeout="3000" color="red-accent-3" elevation="24" v-model="snackbar">
       {{ errorMeg }}
     </v-snackbar>
+    <v-alert border="top" type="warning" variant="outlined" prominent class="jielong-alert" color="#ff0000">
+      由于词库有限，存在部分诗词未收录，仅以体验为主！
+    </v-alert>
   </v-container>
 </template>
 
@@ -92,7 +95,7 @@ const startPoem: any = ref('')
 const progress: any = ref(0)
 const jieLongMusicRef = ref()
 const router = useRouter()
-const prePorm = ['悠然见南山', '山中一夜雨', '日色冷青松', '山月照弹琴', '书卷满床头']
+const prePorm = ['悠然见南山', '山中一夜雨', '日色冷青松', '山月照弹琴', '书卷满床头','遂令天下父母心','世上岂无千里马','茫茫江汉上','郎骑竹马来','易求无价宝','有三秋桂子','山桃红花满上头','泉声咽危石','耳中明月珠','惟有饮者留其名','夜夜龙泉壁上鸣','素手玉房前','返关塞黑','甲光向日金鳞开','蜀江春水拍山流','或恐是同乡','绝域苍茫更何有','十里荷花','水流无限似侬愁','三星在天','总是凄凉意','绕床弄青梅','梨花落后清明','世事两茫茫','宜其家室','不重生男重生女','两三点雨山前','门前一片横塘水','崔九堂前几度闻','直上三十里','光焰万丈长','对此可以酣高楼','花底离情三月雨',]
 let preSentence: string = ''
 let scrollTargetDom: any = null
 let pageDom: any = null
@@ -313,5 +316,21 @@ onBeforeUnmount(() => {
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
+}
+
+.jielong-btn{
+  font-size: 1.4rem;
+}
+
+.jielong-introduce div{
+  font-size: 1.2rem;
+}
+
+.jielong-alert{
+  position: absolute;
+  right: 0;
+  top: 30px;
+  height: 70px;
+  width: 490px;
 }
 </style>

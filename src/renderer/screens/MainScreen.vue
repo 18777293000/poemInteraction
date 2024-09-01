@@ -59,7 +59,6 @@ const handleClick = (value: string): void => {
           height="500"
           hide-delimiter-background
           show-arrows="hover"
-          cycle
           hide-delimiters
         >
           <!-- 使用自定义按钮的话，箭头消失功能无效 -->
@@ -83,16 +82,16 @@ const handleClick = (value: string): void => {
                 class="d-flex fill-height align-center"
                 style="flex-direction: column; justify-content: space-around"
               >
-                <div class="card-title"> 诗词风采 </div>
+                <div class="card-title"> 中华诗词数字互动体验 </div>
                 <div class="card-content">
-                  余昔于江陵，见天台司马子微，谓余有仙风道骨，可与神游八极之表。因著大鹏遇希有鸟赋以自广。此赋已传于世，往往人间见之。悔其少作，未穷宏达之旨，中年弃之。及读晋书，睹阮宣子大鹏赞，鄙心陋之。遂更记忆，多将旧本不同。今复存手集，岂敢传诸作者？庶可示之子弟而已。
+                  中国传统文化源远流长，中华诗词博大精深，徜徉在诗词的海洋里，通过趣味闯关、互动游戏的方式，感受飞花令、诗词接龙的无限魅力。
                 </div>
                 <v-btn
                   variant="tonal"
                   rounded="lg"
                   elevation="24"
                   color="#177cb0"
-                  size="large"
+                  class="catd-btn"
                   @click="handleClick('shici')"
                 >
                   开始体验
@@ -108,13 +107,13 @@ const handleClick = (value: string): void => {
               >
                 <div class="card-title"> 飞花令 </div>
                 <div class="card-content">
-                  以“飞花令”为代表的饮酒行令，其实是中国人在饮酒时的一种特有的助兴游戏。飞花令属雅令，比较高雅，没有诗词基础的人根本玩不转它，所以这种酒令也就成了文人墨客们喜爱的文字游戏，就连名字也来源于诗词之中。因唐代诗人韩翃的名诗《寒食》中有“春城无处不飞花”一句，故名“飞花令”。
+                  以“飞花令”为代表的饮酒行令，其实是中国人在饮酒时的一种特有的助兴游戏。飞花令属雅令，比较高雅，没有诗词基础的人根本玩不转它，所以这种酒令也就成了文人墨客们喜爱的文字游戏，就连名字也来源于诗词之中。因唐代名诗《寒食》中有“春城无处不飞花”一句，故名“飞花令”。
                 </div>
                 <v-btn
                   variant="tonal"
                   rounded="lg"
                   elevation="24"
-                  size="large"
+                  class="catd-btn"
                   color="#177cb0"
                   @click="handleClick('feihua')"
                 >
@@ -131,13 +130,13 @@ const handleClick = (value: string): void => {
               >
                 <div class="card-title"> 诗词接龙 </div>
                 <div class="card-content">
-                  诗词接龙考验的是参与者的诗词造诣以及对诗词韵律的掌握。在游戏中，参与者需要根据系统给出的前一句诗句，灵活运用自己的诗词知识和想象力，接龙出一句首字与前一句末字相同的新诗句。这要求参与者熟悉古代诗词的常用词汇、典故和修辞手法，能够在有限的时间内迅速构思出符合要求的新诗句。
+                  诗词接龙考验的是参与者的诗词造诣以及对诗词韵律的掌握。在游戏中，参与者需要根据系统给出的前一句诗句，灵活运用自己的诗词知识和想象力，接龙出一句首字与前一句末字相同的新诗句。这要求参与者熟悉古代诗词的常用词汇、典故和修辞手法，能够在有限的时间内迅速构思出符合要求的诗句。
                 </div>
                 <v-btn
                   variant="tonal"
                   rounded="lg"
                   elevation="24"
-                  size="large"
+                  class="catd-btn"
                   color="#177cb0"
                   @click="handleClick('jielong')"
                 >
@@ -180,11 +179,15 @@ const handleClick = (value: string): void => {
 }
 
 .card-content {
-  font-size: 1.25rem !important;
-  font-weight: 500;
+  font-size: 2rem !important;
+  font-weight: 550;
   line-height: 1.6;
   letter-spacing: 0.0125em !important;
   text-transform: none !important;
+}
+
+.catd-btn {
+  font-size: 1.6rem;
 }
 
 /* 如果你想要更复杂的移动效果，例如斜向移动，你可以添加更多的关键帧 */

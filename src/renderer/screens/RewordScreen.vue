@@ -1,6 +1,6 @@
 <template>
   <v-container class="fill-height justify-center reword-background">
-    <div v-show="round >= 1" class="reword-contain">
+    <div v-show="round >= 5" class="reword-contain">
       <!-- <img class="reword-img" :src="round >= 1 ? resolvePath(`/images/rank/${round}.gif`) : ''" /> -->
       <img class="reword-img" :src="resolvePath(`/images/rank/3.gif`)" />
       <v-img class="position-relative" width="58vw" :src="resolvePath('/images/bonus.jpg')">
@@ -9,7 +9,7 @@
         </div>
       </v-img>
     </div>
-    <div v-show="round < 1" class="reword-contain">
+    <div v-show="round < 5" class="reword-contain">
       <v-img class="position-relative" width="50vw" :src="resolvePath('/images/fight.jpg')"></v-img>
     </div>
 

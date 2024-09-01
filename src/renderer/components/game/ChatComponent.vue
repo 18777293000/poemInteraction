@@ -30,7 +30,7 @@
         </v-card-text>
 
         <v-card-actions>
-          <v-btn variant="text" color="orange"> ——{{ outputTitle }} </v-btn>
+          <v-btn variant="text" color="orange" class="chat-btn"> —{{ outputTitle }} </v-btn>
         </v-card-actions>
       </v-card>
     </div>
@@ -55,7 +55,7 @@
         </v-card-text>
 
         <v-card-actions class="justify-end">
-          <v-btn variant="text" color="orange"> ——{{ outputTitle }} </v-btn>
+          <v-btn variant="text" color="orange" class="chat-btn"> —{{ outputTitle }} </v-btn>
         </v-card-actions>
       </v-card>
     </div>
@@ -106,5 +106,9 @@ defineExpose({
   line-height: 1.175;
   letter-spacing: 0.0073529412em !important;
   text-transform: none !important;
+}
+
+.chat-btn{
+  font-size: 1.2rem;
 }
 </style>
