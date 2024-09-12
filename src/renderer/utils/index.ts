@@ -1,5 +1,6 @@
 export default class Utils {
-  private static isDev: string = 'dev'
+  private static isDev: string = 'dev' 
+  //  dev || prod
   constructor() {}
 
   static getCurrentLocale(): string {

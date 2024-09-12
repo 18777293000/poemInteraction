@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "诗歌互动平台，包括飞花令、诗词接龙、诗词展示",
   "homepage": "https://sclc.tjut.edu.cn/",
-  "author": "yangming <120953990@qq.com>",
+  "author": "杨铭 <120953990@qq.com>",
   "license": "MIT",
   "main": "dist/main/index.js",
   "private": true,

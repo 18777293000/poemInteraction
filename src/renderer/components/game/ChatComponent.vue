@@ -80,8 +80,9 @@ onMounted((): void => {
   outputId.value = props.id
 })
 
-const handelClick = () => {
+const handelClick = (value) => {
   console.log('@子组件----我被调用了')
+  outputContent.value = value
 }
 
 const getChar = (head: boolean, str: string): string => {
@@ -108,7 +109,7 @@ defineExpose({
   text-transform: none !important;
 }
 
-.chat-btn{
+.chat-btn {
   font-size: 1.2rem;
 }
 </style>

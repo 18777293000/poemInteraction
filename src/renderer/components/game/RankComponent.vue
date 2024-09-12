@@ -1,40 +1,40 @@
 <template>
   <div class="rank-contain">
-    <div v-show="outputRank > 1" class="rank-item item1 text-center">
+    <div v-show="outputRank >= 1" class="rank-item item1 text-center">
       <div class="rank-item-title" style="color: #00454e">诗词小白</div>
       <img class="rank-img" :src="resolvePath('/images/rank/9.gif')" />
     </div>
-    <div v-show="outputRank > 2" class="rank-item item2 text-center">
+    <div v-show="outputRank >= 2" class="rank-item item2 text-center">
       <div class="rank-item-title" style="color: #12575e">童生</div>
 
       <img class="rank-img" :src="resolvePath('/images/rank/9.gif')" />
     </div>
-    <div v-show="outputRank > 3" class="rank-item item3 text-center">
+    <div v-show="outputRank >= 3" class="rank-item item3 text-center">
       <div class="rank-item-title" style="color: #294e7c">秀才</div>
 
       <img class="rank-img" :src="resolvePath('/images/rank/9.gif')" />
     </div>
-    <div v-show="outputRank > 4" class="rank-item item4 text-center">
+    <div v-show="outputRank >= 4" class="rank-item item4 text-center">
       <div class="rank-item-title" style="color: #b28250">举人</div>
 
       <img class="rank-img" :src="resolvePath('/images/rank/9.gif')" />
     </div>
-    <div v-show="outputRank > 5" class="rank-item item5 text-center">
+    <div v-show="outputRank >= 5" class="rank-item item5 text-center">
       <div class="rank-item-title" style="color: #5f98b3">贡士</div>
 
       <img class="rank-img" :src="resolvePath('/images/rank/9.gif')" />
     </div>
-    <div v-show="outputRank > 6" class="rank-item item6 text-center">
+    <div v-show="outputRank >= 6" class="rank-item item6 text-center">
       <div class="rank-item-title" style="color: #625078">进士</div>
 
       <img class="rank-img" :src="resolvePath('/images/rank/9.gif')" />
     </div>
-    <div v-show="outputRank > 7" class="rank-item item7 text-center">
+    <div v-show="outputRank >= 7" class="rank-item item7 text-center">
       <div class="rank-item-title" style="color: #15141c">探花</div>
 
       <img class="rank-img" :src="resolvePath('/images/rank/9.gif')" />
     </div>
-    <div v-show="outputRank > 8" class="rank-item item8 text-center">
+    <div v-show="outputRank >= 8" class="rank-item item8 text-center">
       <div class="rank-item-title" style="color: #922d28">榜眼</div>
 
       <img class="rank-img" :src="resolvePath('/images/rank/9.gif')" />
@@ -55,10 +55,11 @@ const rankItems = document.getElementsByClassName('rank-item')
 
 const updateRank = (rank: number): void => {
   outputRank.value = rank
-  if (rank > 1) {
+  if (rank >= 1) {
     nextTick(() => {
-      console.log('rankitems I:', rankItems[outputRank.value - 2])
-      rankItems[outputRank.value - 2].classList.add('play')
+      console.log('rankitems I:', rankItems[outputRank.value - 1])
+      console.log('rankitems rank:', outputRank.value)
+      rankItems[outputRank.value - 1].classList.add('play')
     })
   }
 }

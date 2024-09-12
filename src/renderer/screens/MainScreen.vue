@@ -55,12 +55,7 @@ const handleClick = (value: string): void => {
     <v-row no-gutters align="center" class="text-center fill-height">
       <div> </div>
       <v-col v-for="n in 1" :key="n">
-        <v-carousel
-          height="500"
-          hide-delimiter-background
-          show-arrows="hover"
-          hide-delimiters
-        >
+        <v-carousel height="500" hide-delimiter-background show-arrows="hover" hide-delimiters>
           <!-- 使用自定义按钮的话，箭头消失功能无效 -->
           <!-- <template v-slot:prev="{ props }">
               <v-btn

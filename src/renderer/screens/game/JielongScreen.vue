@@ -1,13 +1,7 @@
 <template>
   <v-container class="fill-height flex-column jielong-background">
-    <v-progress-linear
-      color="light-green-accent-4"
-      height="10"
-      rounded
-      :model-value="progress"
-      striped
-      :indeterminate="progress === 0"
-    ></v-progress-linear>
+    <v-progress-linear color="light-green-accent-4" height="10" rounded :model-value="progress" striped
+      :indeterminate="progress === 0"></v-progress-linear>
     <div id="scroll-target" class="overflow-y-auto pa-10">
       <!-- v-scroll:#scroll-target="onScroll" -->
       <v-card class="mx-auto" prepend-icon="mdi-apps" subtitle="规则介绍" width="600">
@@ -16,36 +10,22 @@
         </template>
 
         <v-card-text class="bg-surface-light pt-4 jielong-introduce">
-          <div
-            >与人机对诗，人机会给出一句诗，选手要答出一句该字开头的诗句，并以句尾作为下一句的开头，共10题。</div
-          >
+          <div>与人机对诗，人机会给出一句诗，选手要答出一句该字开头的诗句，并以句尾作为下一句的开头，共10题。</div>
           <div>如： 问题：请写出首字为"一"的诗句：</div>
           <div>则回答： <u>一声梧叶一声秋</u>，即算正确，</div>
           <div>下个问题需要以“秋”字为首，回答：<u>秋风起兮白云飞</u>，下同。</div>
         </v-card-text>
       </v-card>
-      <chat-component :type="0" :content="startPoem"></chat-component>
-      <chat-component
-        v-for="(item, index) in chatLists"
-        :key="index"
-        :type="item.type"
-        :content="item.content"
-        :title="item.title"
-        :round="item.round"
-        :id="item.id"
-      ></chat-component>
+      <chat-component :type="0" :content="startPoem" ref="chatStartRef"></chat-component>
+      <chat-component v-for="(item, index) in chatLists" :key="index" :type="item.type" :content="item.content"
+        :title="item.title" :round="item.round" :id="item.id"></chat-component>
     </div>
     <div id="scroll-btn">
       <div class="pt-3" style="min-width: 600px">
-        <section v-show="!finish" style="border: 2px solid #0eb83a;border-radius: 10px;padding: 4px;">
+        <section v-show="!finish" style="border: 2px solid #0eb83a; border-radius: 10px; padding: 4px">
           <v-text-field v-model="answer" label="回答"></v-text-field>
-          <v-btn
-            prepend-icon="mdi-arrow-up-bold-box-outline"
-            variant="tonal"
-            block
-            class="bg-amber-lighten-4 jielong-btn"
-            @click="handleAnswer"
-          >
+          <v-btn prepend-icon="mdi-arrow-up-bold-box-outline" variant="tonal" block
+            class="bg-amber-lighten-4 jielong-btn" @click="handleAnswer">
             确认
           </v-btn>
         </section>
@@ -66,6 +46,10 @@
     <v-alert border="top" type="warning" variant="outlined" prominent class="jielong-alert" color="#ff0000">
       由于词库有限，存在部分诗词未收录，仅以体验为主！
     </v-alert>
+    <div class="daan-list">
+      <v-btn v-for="(i, index) in daanList" :key="index" v-show="i.isShow" @click="touchAnswer(index)" rounded="lg"
+        size="x-large" block color="#161823" style="margin-top: 1rem;">{{ i.daan }}</v-btn>
+    </div>
   </v-container>
 </template>
 
@@ -84,6 +68,14 @@ interface IPoem {
   content: string
 }
 
+const daanList = ref([
+  { daan: '夜语南堂新瓦响', isShow: true },
+  { daan: '久旱逢甘雨', isShow: true },
+  { daan: '白句方从万玉妃', isShow: true },
+  { daan: '时雨真成大有年', isShow: true },
+  { daan: '月午江空桂花落', isShow: true },
+
+])
 const answer: any = ref('')
 const chatLists: any = ref([])
 const round: any = ref(1)
@@ -94,8 +86,49 @@ const errorMeg: any = ref('没有查询到诗句! ! !')
 const startPoem: any = ref('')
 const progress: any = ref(0)
 const jieLongMusicRef = ref()
+const chatStartRef = ref()
 const router = useRouter()
-const prePorm = ['悠然见南山', '山中一夜雨', '日色冷青松', '山月照弹琴', '书卷满床头','遂令天下父母心','世上岂无千里马','茫茫江汉上','郎骑竹马来','易求无价宝','有三秋桂子','山桃红花满上头','泉声咽危石','耳中明月珠','惟有饮者留其名','夜夜龙泉壁上鸣','素手玉房前','返关塞黑','甲光向日金鳞开','蜀江春水拍山流','或恐是同乡','绝域苍茫更何有','十里荷花','水流无限似侬愁','三星在天','总是凄凉意','绕床弄青梅','梨花落后清明','世事两茫茫','宜其家室','不重生男重生女','两三点雨山前','门前一片横塘水','崔九堂前几度闻','直上三十里','光焰万丈长','对此可以酣高楼','花底离情三月雨',]
+// const prePorm = [
+//   '悠然见南山',
+//   '山中一夜雨',
+//   '日色冷青松',
+//   '山月照弹琴',
+//   '书卷满床头',
+//   '遂令天下父母心',
+//   '世上岂无千里马',
+//   '茫茫江汉上',
+//   '郎骑竹马来',
+//   '易求无价宝',
+//   '有三秋桂子',
+//   '山桃红花满上头',
+//   '泉声咽危石',
+//   '耳中明月珠',
+//   '惟有饮者留其名',
+//   '夜夜龙泉壁上鸣',
+//   '素手玉房前',
+//   '返关塞黑',
+//   '甲光向日金鳞开',
+//   '蜀江春水拍山流',
+//   '或恐是同乡',
+//   '绝域苍茫更何有',
+//   '十里荷花',
+//   '水流无限似侬愁',
+//   '三星在天',
+//   '总是凄凉意',
+//   '绕床弄青梅',
+//   '梨花落后清明',
+//   '世事两茫茫',
+//   '宜其家室',
+//   '不重生男重生女',
+//   '两三点雨山前',
+//   '门前一片横塘水',
+//   '崔九堂前几度闻',
+//   '直上三十里',
+//   '光焰万丈长',
+//   '对此可以酣高楼',
+//   '花底离情三月雨'
+// ]
+const prePorm = ['黄鹤楼前月华白', '但愿人长久', '长安一片月', '天涯共此时', '今年八月十五夜']
 let preSentence: string = ''
 let scrollTargetDom: any = null
 let pageDom: any = null
@@ -103,7 +136,9 @@ let timer: any = null
 
 const getRandomElement = (array: Array<string>): string => {
   const randomIndex = Math.floor(Math.random() * array.length)
-  return array[randomIndex]
+  // return array[randomIndex]
+  console.log('round', round.value)
+  return array[round.value - 1]
 }
 
 //  初始诗句初始化
@@ -111,7 +146,7 @@ startPoem.value = preSentence = getRandomElement(prePorm)
 
 watch(round, (a: number, oldA: number) => {
   // console.log(`watch(a),a:${a},oldA:${oldA}`)
-  if (oldA === 10) {
+  if (oldA === 5) {
     //  当回答完第十题，olda来到10，,round比olda多1，所以可以结束了，记得清楚定时器
     finish.value = true
     setTimeout(() => {
@@ -150,6 +185,12 @@ onMounted(() => {
   window.addEventListener('resize', resizeDom)
   resizeDom()
 })
+
+const touchAnswer = (index: any): void => {
+  daanList.value[index].isShow = false
+  answer.value = daanList.value[index].daan
+  handleAnswer()
+}
 
 const resizeDom = (): void => {
   const pageHeight: any = pageDom.clientHeight > 969 ? 969 : pageDom.clientHeight - 48
@@ -292,6 +333,13 @@ const robotChat = (value: string): void => {
       preSentence = sentencesWithLuo[0]
       answer.value = ''
       round.value = round.value + 1
+
+      // -------------------------------
+      setTimeout(() => {
+        startPoem.value = preSentence = getRandomElement(prePorm)
+        chatStartRef.value.handelClick(startPoem.value)
+        chatLists.value = []
+      }, 3000);
     })
     .catch((err: any): void => {
       if (err.message === '无诗词') {
@@ -318,15 +366,21 @@ onBeforeUnmount(() => {
   position: relative;
 }
 
-.jielong-btn{
+.jielong-btn {
   font-size: 1.4rem;
 }
 
-.jielong-introduce div{
+.jielong-introduce div {
   font-size: 1.2rem;
 }
 
-.jielong-alert{
+.daan-list {
+  position: absolute;
+  left: 0;
+  top: 20%;
+}
+
+.jielong-alert {
   position: absolute;
   right: 0;
   top: 30px;

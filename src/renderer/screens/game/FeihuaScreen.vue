@@ -9,22 +9,40 @@
           </v-col>
           <!-- style="z-index: 12;" 加上这个让幻灯片悬在排名之上 -->
           <v-col cols="12">
-            <v-carousel v-model="currentPage" :show-arrows="false" :height="height" hide-delimiters class="">
+            <v-carousel
+              v-model="currentPage"
+              :show-arrows="false"
+              :height="height"
+              hide-delimiters
+              class=""
+            >
               <v-carousel-item value="0" class="">
                 <div class="pa-6">
                   <div class="d-flex justify-center align-center error-border-inner">
                     <div class="feihua-h3" style="color: #d50000">回答错误</div>
-                    <div><v-img class="" :src="resolvePath('/images/jielong-error.gif')" width="130"></v-img></div>
+                    <div
+                      ><v-img
+                        class=""
+                        :src="resolvePath('/images/jielong-error.gif')"
+                        width="130"
+                      ></v-img
+                    ></div>
                   </div>
                 </div>
               </v-carousel-item>
               <v-carousel-item value="1" class="">
                 <div class="d-flex flex-column justify-center mb-6">
-                  <div class="feihua-subtitle-1 ma-2 pa-2">系统给出一个关键字, 玩家要在90秒内想出并输入一句含有该字的诗句。</div>
-                  <div class="feihua-subtitle-1 ma-2 pa-2">如: 问题:请写出含有<span
-                      style="color: #00c853; font-size: 2rem">"春"</span>的诗句：</div>
-                  <div class="feihua-subtitle-1 ma-2 pa-2">则回答：<span
-                      style="color: #00c853; font-size: 2rem"><u>春城无处不飞花</u></span>，即算正确，跳转到下个问题。
+                  <div class="feihua-subtitle-1 ma-2 pa-2"
+                    >系统给出一个关键字, 玩家要在90秒内想出并输入一句含有该字的诗句。</div
+                  >
+                  <div class="feihua-subtitle-1 ma-2 pa-2"
+                    >如: 问题:请写出含有<span style="color: #00c853; font-size: 2rem">"春"</span
+                    >的诗句：</div
+                  >
+                  <div class="feihua-subtitle-1 ma-2 pa-2"
+                    >则回答：<span style="color: #00c853; font-size: 2rem"
+                      ><u>春城无处不飞花</u></span
+                    >，即算正确，跳转到下个问题。
                   </div>
                 </div>
               </v-carousel-item>
@@ -36,7 +54,7 @@
                     <h3>{{ completeShici.author }}</h3>
                     <p class="feihua-h5" style="white-space: pre-line; margin-top: 4px">{{
                       addBreaksToPoem(completeShici.content)
-                      }}</p>
+                    }}</p>
                     <!-- <p v-for="(item, index) in slicePoem(completeShici.content)" :key="index">{{ item }}</p> -->
                   </div>
                 </div>
@@ -48,27 +66,57 @@
       <v-col cols="12" class="">
         <v-row align="center" justify="start" class="text-center">
           <v-col cols="3" class="">
-            <v-progress-circular :color="colors[alertColor]" :model-value="time" :size="200" :width="10">
-              <v-card v-show="!play" class="mx-auto rounded-circle bg-amber-lighten-4" height="140" width="140">
-                <div class="d-flex fill-height align-center justify-center feihua-h3 circle-background"
-                  style="color: #1b5e20" @click="gamePlay">{{ startBtn }}</div>
+            <v-progress-circular
+              :color="colors[alertColor]"
+              :model-value="time"
+              :size="200"
+              :width="10"
+            >
+              <v-card
+                v-show="!play"
+                class="mx-auto rounded-circle bg-amber-lighten-4"
+                height="140"
+                width="140"
+              >
+                <div
+                  class="d-flex fill-height align-center justify-center feihua-h3 circle-background"
+                  style="color: #1b5e20"
+                  @click="gamePlay"
+                  >{{ startBtn }}</div
+                >
               </v-card>
               <v-expand-x-transition>
-                <v-card v-show="play" class="mx-auto rounded-circle bg-amber-lighten-4" height="140" width="140">
-                  <div class="d-flex fill-height align-center justify-center text-h1 circle-background">{{ currentChart
-                    }}</div>
+                <v-card
+                  v-show="play"
+                  class="mx-auto rounded-circle bg-amber-lighten-4"
+                  height="140"
+                  width="140"
+                >
+                  <div
+                    class="d-flex fill-height align-center justify-center text-h1 circle-background"
+                    >{{ currentChart }}</div
+                  >
                 </v-card>
               </v-expand-x-transition>
             </v-progress-circular>
           </v-col>
           <v-col cols="7" class="">
-            <section v-show="!gameOver" style="border: 2px solid #0eb83a;border-radius: 10px;padding: 4px;">
+            <section
+              v-show="!gameOver"
+              style="border: 2px solid #0eb83a; border-radius: 10px; padding: 4px"
+            >
               <div>
                 <v-text-field v-model="answer" label="回答" class=""></v-text-field>
               </div>
               <div>
-                <v-btn prepend-icon="mdi-arrow-up-bold-box-outline" variant="tonal" block :disabled="btnDisabled"
-                  class="bg-amber-lighten-4 feihua-btn" @click="handleAnswer">
+                <v-btn
+                  prepend-icon="mdi-arrow-up-bold-box-outline"
+                  variant="tonal"
+                  block
+                  :disabled="btnDisabled"
+                  class="bg-amber-lighten-4 feihua-btn"
+                  @click="handleAnswer"
+                >
                   回答
                 </v-btn>
               </div>
@@ -76,22 +124,39 @@
             <v-expand-x-transition>
               <v-card v-show="gameOver" class="bg-amber-lighten-4 mx-auto" height="140" width="300">
                 <div class="feihua-h4 pt-5">体验完成</div>
-                <div class="feihua-h5 pt-5">正确回答{{ answerList.filter((i) => i === 1).length }}题</div>
+                <div class="feihua-h5 pt-5"
+                  >正确回答{{ answerList.filter((i) => i === 1).length }}题</div
+                >
               </v-card>
             </v-expand-x-transition>
           </v-col>
         </v-row>
         <v-row class="d-none">
-          <v-progress-linear buffer-value="30" color="orange" model-value="20" stream></v-progress-linear>
+          <v-progress-linear
+            buffer-value="30"
+            color="orange"
+            model-value="20"
+            stream
+          ></v-progress-linear>
         </v-row>
       </v-col>
     </v-row>
     <div id="fireworks"><img :src="resolvePath('/images/fireworks.png')" alt="" /></div>
-    <v-alert border="top" type="warning" variant="outlined" prominent class="feihua-alert" color="#ff0000">
+    <v-alert
+      border="top"
+      type="warning"
+      variant="outlined"
+      prominent
+      class="feihua-alert"
+      color="#ff0000"
+    >
       由于词库有限，存在部分诗词未收录，仅以体验为主！
     </v-alert>
     <rank-component ref="jielongRankRef"></rank-component>
     <music-component ref="feiHuaMusicRef"></music-component>
+    <div class="daan-list" v-show="currentPage === 1">
+      <v-btn v-for="(i, index) in daanList" :key="index" v-show="i.isShow" @click="touchAnswer(index)" rounded="lg" size="x-large" block color="#161823" style="margin-top: 1rem;">{{ i.daan }}</v-btn>
+    </div>
   </v-container>
 </template>
 <script setup lang="ts">
@@ -102,58 +167,68 @@ import RankComponent from '@/renderer/components/game/RankComponent.vue'
 import MusicComponent from '@/renderer/components/MusicComponent.vue'
 import { resolvePath } from '@/renderer/utils'
 
-const characters = [
-  '人',
-  '一',
-  '不',
-  '天',
-  '风',
-  '山',
-  '春',
-  '我',
-  '时',
-  '何',
-  '中',
-  '来',
-  '归',
-  '秋',
-  '长',
-  '明',
-  '清',
-  '云',
-  '行',
-  '花',
-  '生',
-  '心',
-  '君',
-  '年',
-  '寒',
-  '平',
-  '诗',
-  '无',
-  '谁',
-  '老',
-  '香',
-  '自',
-  '开',
-  '新',
-  '知',
-  '今',
-  '空',
-  '东',
-  '声',
-  '青',
-  '此',
-  '有',
-  '家',
-  '江',
-  '白',
-  '深',
-  '流',
-  '回',
-  '高',
-  '三'
-]
+// const characters = [
+//   '人',
+//   '一',
+//   '不',
+//   '天',
+//   '风',
+//   '山',
+//   '春',
+//   '我',
+//   '时',
+//   '何',
+//   '中',
+//   '来',
+//   '归',
+//   '秋',
+//   '长',
+//   '明',
+//   '清',
+//   '云',
+//   '行',
+//   '花',
+//   '生',
+//   '心',
+//   '君',
+//   '年',
+//   '寒',
+//   '平',
+//   '诗',
+//   '无',
+//   '谁',
+//   '老',
+//   '香',
+//   '自',
+//   '开',
+//   '新',
+//   '知',
+//   '今',
+//   '空',
+//   '东',
+//   '声',
+//   '青',
+//   '此',
+//   '有',
+//   '家',
+//   '江',
+//   '白',
+//   '深',
+//   '流',
+//   '回',
+//   '高',
+//   '三'
+// ]
+
+const characters = ['盘','秋','杯','月','明',]
+// const daanList = ['海上生明月','今夜月明人尽望','举头望明月','举杯邀明月','银汉无声转玉盘']
+const daanList = ref([
+  {daan: '海上生明月', isShow: true},
+  {daan: '今夜月明人尽望', isShow: true},
+  {daan: '秋风吹不尽', isShow: true},
+  {daan: '举杯邀明月', isShow: true},
+  {daan: '银汉无声转玉盘', isShow: true},
+])
 const { setloginDialogVisible } = useCounterStore()
 const play = ref(false)
 const router = useRouter()
@@ -198,6 +273,12 @@ const resizeHeight = (): void => {
   }
 }
 
+const touchAnswer = (index: any):void => {
+  daanList.value[index].isShow = false
+  answer.value = daanList.value[index].daan
+  handleAnswer()
+}
+
 const gamePlay = (): void => {
   play.value = !play.value
   btnDisabled.value = false
@@ -209,6 +290,7 @@ const gamePlay = (): void => {
 const startTime = (): void => {
   timer = setInterval(() => {
     time.value--
+    console.log('!!!!!', time.value)
     if (time.value === 60) {
       alertColor.value = 1
     }
@@ -217,7 +299,7 @@ const startTime = (): void => {
     }
     if (time.value === 0) {
       answerError()
-      if (answerList.value.length >= 10) {
+      if (answerList.value.length >= 5) {
         //  用户一直静止不动，点击开始后，放置10个回合，然后也是结束游戏
         overGame()
       } else {
@@ -232,7 +314,8 @@ const startTime = (): void => {
 }
 
 const getChart = (): string => {
-  return characters[Math.floor(Math.random() * characters.length)]
+  // return characters[Math.floor(Math.random() * characters.length)]
+  return characters[answerList.value.length]
 }
 
 const getNewQuestion = (): void => {
@@ -251,7 +334,7 @@ const answerRight = (): void => {
   answer.value = ''
   fireWordEle.className = 'fireworks-animation'
   jielongRankRef.value.updateRank(answerList.value.filter((i) => i === 1).length)
-  if (answerList.value.length >= 10) {
+  if (answerList.value.length >= 5) {
     overGame()
   }
 }
@@ -261,7 +344,7 @@ const answerError = (): void => {
   answer.value = ''
   fireWordEle.className = ''
   answerList.value.push(0)
-  if (answerList.value.length >= 10) {
+  if (answerList.value.length >= 5) {
     overGame()
   }
 }
@@ -415,11 +498,17 @@ onBeforeUnmount((): void => {
   transform: scale(0);
 }
 
+.daan-list{
+  position: absolute;
+  left: 0;
+  top: 20%;
+}
+
 .feihua-btn {
   font-size: 1.4rem;
 }
 
-.feihua-alert{
+.feihua-alert {
   position: absolute;
   right: 0;
   top: 10px;
@@ -472,7 +561,6 @@ onBeforeUnmount((): void => {
 }
 
 @keyframes clippath {
-
   0%,
   100% {
     clip-path: inset(0 0 98% 0);
