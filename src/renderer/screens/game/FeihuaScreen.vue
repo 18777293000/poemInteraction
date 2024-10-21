@@ -9,40 +9,22 @@
           </v-col>
           <!-- style="z-index: 12;" 加上这个让幻灯片悬在排名之上 -->
           <v-col cols="12">
-            <v-carousel
-              v-model="currentPage"
-              :show-arrows="false"
-              :height="height"
-              hide-delimiters
-              class=""
-            >
+            <v-carousel v-model="currentPage" :show-arrows="false" :height="height" hide-delimiters class="">
               <v-carousel-item value="0" class="">
                 <div class="pa-6">
                   <div class="d-flex justify-center align-center error-border-inner">
                     <div class="feihua-h3" style="color: #d50000">回答错误</div>
-                    <div
-                      ><v-img
-                        class=""
-                        :src="resolvePath('/images/jielong-error.gif')"
-                        width="130"
-                      ></v-img
-                    ></div>
+                    <div><v-img class="" :src="resolvePath('/images/jielong-error.gif')" width="130"></v-img></div>
                   </div>
                 </div>
               </v-carousel-item>
               <v-carousel-item value="1" class="">
                 <div class="d-flex flex-column justify-center mb-6">
-                  <div class="feihua-subtitle-1 ma-2 pa-2"
-                    >系统给出一个关键字, 玩家要在90秒内想出并输入一句含有该字的诗句。</div
-                  >
-                  <div class="feihua-subtitle-1 ma-2 pa-2"
-                    >如: 问题:请写出含有<span style="color: #00c853; font-size: 2rem">"春"</span
-                    >的诗句：</div
-                  >
-                  <div class="feihua-subtitle-1 ma-2 pa-2"
-                    >则回答：<span style="color: #00c853; font-size: 2rem"
-                      ><u>春城无处不飞花</u></span
-                    >，即算正确，跳转到下个问题。
+                  <div class="feihua-subtitle-1 ma-2 pa-2">系统给出一个关键字, 玩家要在90秒内想出并输入一句含有该字的诗句。</div>
+                  <div class="feihua-subtitle-1 ma-2 pa-2">如: 问题:请写出含有<span
+                      style="color: #00c853; font-size: 2rem">"春"</span>的诗句：</div>
+                  <div class="feihua-subtitle-1 ma-2 pa-2">则回答：<span
+                      style="color: #00c853; font-size: 2rem"><u>春城无处不飞花</u></span>，即算正确，跳转到下个问题。
                   </div>
                 </div>
               </v-carousel-item>
@@ -66,57 +48,27 @@
       <v-col cols="12" class="">
         <v-row align="center" justify="start" class="text-center">
           <v-col cols="3" class="">
-            <v-progress-circular
-              :color="colors[alertColor]"
-              :model-value="time"
-              :size="200"
-              :width="10"
-            >
-              <v-card
-                v-show="!play"
-                class="mx-auto rounded-circle bg-amber-lighten-4"
-                height="140"
-                width="140"
-              >
-                <div
-                  class="d-flex fill-height align-center justify-center feihua-h3 circle-background"
-                  style="color: #1b5e20"
-                  @click="gamePlay"
-                  >{{ startBtn }}</div
-                >
+            <v-progress-circular :color="colors[alertColor]" :model-value="time" :size="200" :width="10">
+              <v-card v-show="!play" class="mx-auto rounded-circle bg-amber-lighten-4" height="140" width="140">
+                <div class="d-flex fill-height align-center justify-center feihua-h3 circle-background"
+                  style="color: #1b5e20" @click="gamePlay">{{ startBtn }}</div>
               </v-card>
               <v-expand-x-transition>
-                <v-card
-                  v-show="play"
-                  class="mx-auto rounded-circle bg-amber-lighten-4"
-                  height="140"
-                  width="140"
-                >
-                  <div
-                    class="d-flex fill-height align-center justify-center text-h1 circle-background"
-                    >{{ currentChart }}</div
-                  >
+                <v-card v-show="play" class="mx-auto rounded-circle bg-amber-lighten-4" height="140" width="140">
+                  <div class="d-flex fill-height align-center justify-center text-h1 circle-background">{{ currentChart
+                    }}</div>
                 </v-card>
               </v-expand-x-transition>
             </v-progress-circular>
           </v-col>
           <v-col cols="7" class="">
-            <section
-              v-show="!gameOver"
-              style="border: 2px solid #0eb83a; border-radius: 10px; padding: 4px"
-            >
+            <section v-show="!gameOver" style="border: 2px solid #0eb83a; border-radius: 10px; padding: 4px">
               <div>
                 <v-text-field v-model="answer" label="回答" class=""></v-text-field>
               </div>
               <div>
-                <v-btn
-                  prepend-icon="mdi-arrow-up-bold-box-outline"
-                  variant="tonal"
-                  block
-                  :disabled="btnDisabled"
-                  class="bg-amber-lighten-4 feihua-btn"
-                  @click="handleAnswer"
-                >
+                <v-btn prepend-icon="mdi-arrow-up-bold-box-outline" variant="tonal" block :disabled="btnDisabled"
+                  class="bg-amber-lighten-4 feihua-btn" @click="handleAnswer">
                   回答
                 </v-btn>
               </div>
@@ -124,49 +76,25 @@
             <v-expand-x-transition>
               <v-card v-show="gameOver" class="bg-amber-lighten-4 mx-auto" height="140" width="300">
                 <div class="feihua-h4 pt-5">体验完成</div>
-                <div class="feihua-h5 pt-5"
-                  >正确回答{{ answerList.filter((i) => i === 1).length }}题</div
-                >
+                <div class="feihua-h5 pt-5">正确回答{{ answerList.filter((i) => i === 1).length }}题</div>
               </v-card>
             </v-expand-x-transition>
           </v-col>
         </v-row>
         <v-row class="d-none">
-          <v-progress-linear
-            buffer-value="30"
-            color="orange"
-            model-value="20"
-            stream
-          ></v-progress-linear>
+          <v-progress-linear buffer-value="30" color="orange" model-value="20" stream></v-progress-linear>
         </v-row>
       </v-col>
     </v-row>
     <div id="fireworks"><img :src="resolvePath('/images/fireworks.png')" alt="" /></div>
-    <v-alert
-      border="top"
-      type="warning"
-      variant="outlined"
-      prominent
-      class="feihua-alert"
-      color="#ff0000"
-    >
+    <v-alert border="top" type="warning" variant="outlined" prominent class="feihua-alert" color="#ff0000">
       由于词库有限，存在部分诗词未收录，仅以体验为主！
     </v-alert>
     <rank-component ref="jielongRankRef"></rank-component>
     <music-component ref="feiHuaMusicRef"></music-component>
     <div class="daan-list" v-show="currentPage === 1">
-      <v-btn
-        v-for="(i, index) in daanList"
-        :key="index"
-        v-show="i.isShow"
-        @click="touchAnswer(index)"
-        rounded="lg"
-        size="x-large"
-        block
-        color="#161823"
-        style="margin-top: 1rem"
-        >{{ i.daan }}</v-btn
-      >
+      <v-btn v-for="(i, index) in daanList" :key="index" v-show="i.isShow" @click="touchAnswer(index)" rounded="lg"
+        size="x-large" block color="#161823" style="margin-top: 1rem">{{ i.daan }}</v-btn>
     </div>
   </v-container>
 </template>
@@ -231,14 +159,72 @@ import { resolvePath } from '@/renderer/utils'
 //   '三'
 // ]
 
-const characters = ['盘', '秋', '杯', '月', '明']
+const characters = ["莲", "廉", "莲", "廉", "莲"]
 // const daanList = ['海上生明月','今夜月明人尽望','举头望明月','举杯邀明月','银汉无声转玉盘']
 const daanList = ref([
-  { daan: '海上生明月', isShow: true },
-  { daan: '今夜月明人尽望', isShow: true },
-  { daan: '秋风吹不尽', isShow: true },
-  { daan: '举杯邀明月', isShow: true },
-  { daan: '银汉无声转玉盘', isShow: true }
+  { daan: '', isShow: true },
+])
+
+const daanList2 = ref([
+  { daan: '江南可采莲', isShow: true },
+  { daan: '一声明月采莲女', isShow: true },
+  { daan: '何如江上采莲花', isShow: true },
+  { daan: '秋江岸边莲子多', isShow: true },
+  { daan: '闲看苏家女采莲', isShow: true }
+])
+
+const daanList3 = ref([
+  { daan: '廉廉早稻才遮亩', isShow: true },
+  { daan: '欲动孝廉船', isShow: true },
+  { daan: '应访孝廉船', isShow: true },
+  { daan: '廉纤小雨池塘遍', isShow: true },
+  { daan: '廉方合轨仪', isShow: true }
+])
+
+const daanList4 = ref([
+  { daan: '连山何连连', isShow: true },
+  { daan: '梅黄更连连', isShow: true },
+  { daan: '飞阁连连直如发', isShow: true },
+  { daan: '连连睥睨侵', isShow: true },
+  { daan: '长城何连连', isShow: true },
+  { daan: '化作流浑浑', isShow: true },
+  { daan: '沣涨暮浑浑', isShow: true },
+  { daan: '浑浑倚天石', isShow: true },
+  { daan: '今古水浑浑', isShow: true },
+  { daan: '浑浑连太清', isShow: true },
+  { daan: '工夫百链成', isShow: true },
+  { daan: '素娥新链就', isShow: true },
+  { daan: '圣人链阴魄', isShow: true },
+  { daan: '瑚琏幸齐名', isShow: true },
+  { daan: '伏腊涕涟涟', isShow: true },
+  { daan: '伏腊涕涟涟', isShow: true },
+  { daan: '涟涟但幽噫', isShow: true },
+  { daan: '惊伤涕涟涟', isShow: true },
+  { daan: '每岁啼涟涟', isShow: true },
+  { daan: '蜡泪涟涟滴绣闺', isShow: true },
+])
+
+const daanList5 = ref([
+  { daan: '腰镰欲何之', isShow: true },
+  { daan: '芳讯乃兼施', isShow: true },
+  { daan: '焚香兼御史', isShow: true },
+  { daan: '任重兼乌府', isShow: true },
+  { daan: '繁云兼家思', isShow: true },
+  { daan: '才兼识量通', isShow: true },
+  { daan: '兼知五兵权', isShow: true },
+  { daan: '纵酒兼弹棋', isShow: true },
+  { daan: '长城兼在躬', isShow: true },
+  { daan: '接宴身兼杖', isShow: true },
+  { daan: '濂溪留下濂溪井', isShow: true },
+  { daan: '濂溪之水清', isShow: true },
+  { daan: '多少濂溪生并时', isShow: true },
+  { daan: '关内濂溪洛涧多', isShow: true },
+  { daan: '濂溪家住江湄', isShow: true },
+  { daan: '濂翁旧说犹存', isShow: true },
+  { daan: '有一濂渠伊洛', isShow: true },
+  { daan: '洪武中如宋濂', isShow: true },
+  { daan: '有一濂渠伊洛', isShow: true },
+  { daan: '问谁腰镰胡与羌', isShow: true },
 ])
 const { setloginDialogVisible } = useCounterStore()
 const play = ref(false)
@@ -279,8 +265,8 @@ const shuffleArray = (array): any => {
   for (let i = array.length - 1; i > 0; i--) {
     // 生成一个0到i的随机索引
     const j = Math.floor(Math.random() * (i + 1))
-    // 交换当前元素与随机选择的元素
-    ;[array[i], array[j]] = [array[j], array[i]]
+      // 交换当前元素与随机选择的元素
+      ;[array[i], array[j]] = [array[j], array[i]]
   }
   return array
 }
@@ -297,8 +283,10 @@ const resizeHeight = (): void => {
 
 const touchAnswer = (index: any): void => {
   daanList.value[index].isShow = false
-  answer.value = daanList.value[index].daan
-  handleAnswer()
+  if (play.value) {
+    answer.value = daanList.value[index].daan
+    handleAnswer()
+  }
 }
 
 const gamePlay = (): void => {
@@ -348,6 +336,50 @@ const getNewQuestion = (): void => {
   currentPage.value = 1
   currentChart.value = getChart()
   btnDisabled.value = false
+  getNewAnswer(currentChart.value);
+}
+
+const getNewAnswer = (value: any): void => {
+  let newArrayList: any = []
+  if (value === '莲') {
+    newArrayList = getRandomElements(daanList4.value.filter((i: any) => {return i.isShow !== false}))
+    newArrayList.push(getRandomElement(daanList2.value.filter((i: any) => {return i.isShow !== false})))
+  } else if (value === '廉') {
+    newArrayList = getRandomElements(daanList5.value.filter((i: any) => {return i.isShow !== false}))
+    newArrayList.push(getRandomElement(daanList3.value.filter((i: any) => {return i.isShow !== false})))
+  }
+  console.log(newArrayList)
+  daanList.value = shuffleArray(newArrayList);
+}
+
+const getRandomElements = (array, count = 4): Array<any> => {
+
+  // 检查数组是否为空或未定义，并且长度是否足够  
+  if (!Array.isArray(array) || array.length < count) {
+    throw new Error("The provided array is empty, not an array, or does not have enough elements.");
+  }
+
+  // 使用 Fisher-Yates 洗牌算法随机打乱数组  
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]]; // ES6 解构赋值交换元素  
+  }
+
+  // 返回打乱后的数组的前 count 个元素  
+  return array.slice(0, count);
+}
+
+const getRandomElement = (array: any): Array<any> => {
+  // 检查数组是否为空或未定义  
+  if (!Array.isArray(array) || array.length === 0) {
+    throw new Error("The provided array is empty or not an array.");
+  }
+
+  // 生成一个 0 到 array.length - 1 之间的随机索引  
+  const randomIndex = Math.floor(Math.random() * array.length);
+
+  // 返回随机索引对应的数组元素  
+  return array[randomIndex];
 }
 
 const answerRight = (): void => {
@@ -406,6 +438,7 @@ const handleAnswer = (): void => {
   }
   //  判断用户回答是否包含给定字符
   const isAnswerContainChart: boolean = answer.value.indexOf(currentChart.value) !== -1
+
   if (!isAnswerContainChart) {
     answerError()
     setTimeout(() => {
@@ -590,6 +623,7 @@ onBeforeUnmount((): void => {
 }
 
 @keyframes clippath {
+
   0%,
   100% {
     clip-path: inset(0 0 98% 0);
