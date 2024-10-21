@@ -155,7 +155,18 @@
     <rank-component ref="jielongRankRef"></rank-component>
     <music-component ref="feiHuaMusicRef"></music-component>
     <div class="daan-list" v-show="currentPage === 1">
-      <v-btn v-for="(i, index) in daanList" :key="index" v-show="i.isShow" @click="touchAnswer(index)" rounded="lg" size="x-large" block color="#161823" style="margin-top: 1rem;">{{ i.daan }}</v-btn>
+      <v-btn
+        v-for="(i, index) in daanList"
+        :key="index"
+        v-show="i.isShow"
+        @click="touchAnswer(index)"
+        rounded="lg"
+        size="x-large"
+        block
+        color="#161823"
+        style="margin-top: 1rem"
+        >{{ i.daan }}</v-btn
+      >
     </div>
   </v-container>
 </template>
@@ -220,14 +231,14 @@ import { resolvePath } from '@/renderer/utils'
 //   '三'
 // ]
 
-const characters = ['盘','秋','杯','月','明',]
+const characters = ['盘', '秋', '杯', '月', '明']
 // const daanList = ['海上生明月','今夜月明人尽望','举头望明月','举杯邀明月','银汉无声转玉盘']
 const daanList = ref([
-  {daan: '海上生明月', isShow: true},
-  {daan: '今夜月明人尽望', isShow: true},
-  {daan: '秋风吹不尽', isShow: true},
-  {daan: '举杯邀明月', isShow: true},
-  {daan: '银汉无声转玉盘', isShow: true},
+  { daan: '海上生明月', isShow: true },
+  { daan: '今夜月明人尽望', isShow: true },
+  { daan: '秋风吹不尽', isShow: true },
+  { daan: '举杯邀明月', isShow: true },
+  { daan: '银汉无声转玉盘', isShow: true }
 ])
 const { setloginDialogVisible } = useCounterStore()
 const play = ref(false)
@@ -261,7 +272,18 @@ onMounted(() => {
   feiHuaMusicRef.value.selectSong('QianNianFengYa')
   feiHuaMusicRef.value.play()
   window.addEventListener('resize', resizeHeight)
+  daanList.value = shuffleArray(daanList.value)
 })
+
+const shuffleArray = (array): any => {
+  for (let i = array.length - 1; i > 0; i--) {
+    // 生成一个0到i的随机索引
+    const j = Math.floor(Math.random() * (i + 1))
+    // 交换当前元素与随机选择的元素
+    ;[array[i], array[j]] = [array[j], array[i]]
+  }
+  return array
+}
 
 const resizeHeight = (): void => {
   if (pageDom.clientHeight > 950) {
@@ -273,7 +295,7 @@ const resizeHeight = (): void => {
   }
 }
 
-const touchAnswer = (index: any):void => {
+const touchAnswer = (index: any): void => {
   daanList.value[index].isShow = false
   answer.value = daanList.value[index].daan
   handleAnswer()
@@ -350,6 +372,8 @@ const answerError = (): void => {
 }
 
 const toReword = (rank: number) => {
+  clearInterval(timer)
+  timer = null
   router.push({
     path: '/reword',
     query: {
@@ -364,6 +388,8 @@ const overGame = (): void => {
   play.value = !play.value
   startBtn.value = '结束'
   gameOver.value = !gameOver.value
+  clearInterval(timer)
+  timer = null
   setTimeout(() => {
     toReword(answerList.value.filter((i) => i === 1).length)
   }, 2000)
@@ -409,11 +435,14 @@ const checkDatabase = (): void => {
     } else {
       answerError()
     }
-    setTimeout(() => {
-      getNewQuestion()
-      startTime()
-      console.log('answerlist', answerList.value)
-    }, 4000)
+    //  这个地方在更换题目长度的时候记得换
+    if (answerList.value.length < 5) {
+      setTimeout(() => {
+        getNewQuestion()
+        startTime()
+        console.log('answerlist', answerList.value)
+      }, 4000)
+    }
   })
 }
 
@@ -498,7 +527,7 @@ onBeforeUnmount((): void => {
   transform: scale(0);
 }
 
-.daan-list{
+.daan-list {
   position: absolute;
   left: 0;
   top: 20%;

@@ -117,7 +117,7 @@ const handleClick = (value: string): void => {
               </div>
             </v-sheet>
           </v-carousel-item>
-          <v-carousel-item key="3">
+          <!-- <v-carousel-item key="3">
             <v-sheet color="#f2fdff" class="opacity-40" height="100%">
               <div
                 class="d-flex fill-height align-center"
@@ -139,7 +139,7 @@ const handleClick = (value: string): void => {
                 </v-btn>
               </div>
             </v-sheet>
-          </v-carousel-item>
+          </v-carousel-item> -->
         </v-carousel>
       </v-col>
     </v-row>

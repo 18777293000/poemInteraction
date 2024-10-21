@@ -1,7 +1,13 @@
 <template>
   <v-container class="fill-height flex-column jielong-background">
-    <v-progress-linear color="light-green-accent-4" height="10" rounded :model-value="progress" striped
-      :indeterminate="progress === 0"></v-progress-linear>
+    <v-progress-linear
+      color="light-green-accent-4"
+      height="10"
+      rounded
+      :model-value="progress"
+      striped
+      :indeterminate="progress === 0"
+    ></v-progress-linear>
     <div id="scroll-target" class="overflow-y-auto pa-10">
       <!-- v-scroll:#scroll-target="onScroll" -->
       <v-card class="mx-auto" prepend-icon="mdi-apps" subtitle="规则介绍" width="600">
@@ -10,22 +16,39 @@
         </template>
 
         <v-card-text class="bg-surface-light pt-4 jielong-introduce">
-          <div>与人机对诗，人机会给出一句诗，选手要答出一句该字开头的诗句，并以句尾作为下一句的开头，共10题。</div>
+          <div
+            >与人机对诗，人机会给出一句诗，选手要答出一句该字开头的诗句，并以句尾作为下一句的开头，共10题。</div
+          >
           <div>如： 问题：请写出首字为"一"的诗句：</div>
           <div>则回答： <u>一声梧叶一声秋</u>，即算正确，</div>
           <div>下个问题需要以“秋”字为首，回答：<u>秋风起兮白云飞</u>，下同。</div>
         </v-card-text>
       </v-card>
       <chat-component :type="0" :content="startPoem" ref="chatStartRef"></chat-component>
-      <chat-component v-for="(item, index) in chatLists" :key="index" :type="item.type" :content="item.content"
-        :title="item.title" :round="item.round" :id="item.id"></chat-component>
+      <chat-component
+        v-for="(item, index) in chatLists"
+        :key="index"
+        :type="item.type"
+        :content="item.content"
+        :title="item.title"
+        :round="item.round"
+        :id="item.id"
+      ></chat-component>
     </div>
     <div id="scroll-btn">
       <div class="pt-3" style="min-width: 600px">
-        <section v-show="!finish" style="border: 2px solid #0eb83a; border-radius: 10px; padding: 4px">
+        <section
+          v-show="!finish"
+          style="border: 2px solid #0eb83a; border-radius: 10px; padding: 4px"
+        >
           <v-text-field v-model="answer" label="回答"></v-text-field>
-          <v-btn prepend-icon="mdi-arrow-up-bold-box-outline" variant="tonal" block
-            class="bg-amber-lighten-4 jielong-btn" @click="handleAnswer">
+          <v-btn
+            prepend-icon="mdi-arrow-up-bold-box-outline"
+            variant="tonal"
+            block
+            class="bg-amber-lighten-4 jielong-btn"
+            @click="handleAnswer"
+          >
             确认
           </v-btn>
         </section>
@@ -43,12 +66,29 @@
     <v-snackbar :timeout="3000" color="red-accent-3" elevation="24" v-model="snackbar">
       {{ errorMeg }}
     </v-snackbar>
-    <v-alert border="top" type="warning" variant="outlined" prominent class="jielong-alert" color="#ff0000">
+    <v-alert
+      border="top"
+      type="warning"
+      variant="outlined"
+      prominent
+      class="jielong-alert"
+      color="#ff0000"
+    >
       由于词库有限，存在部分诗词未收录，仅以体验为主！
     </v-alert>
     <div class="daan-list">
-      <v-btn v-for="(i, index) in daanList" :key="index" v-show="i.isShow" @click="touchAnswer(index)" rounded="lg"
-        size="x-large" block color="#161823" style="margin-top: 1rem;">{{ i.daan }}</v-btn>
+      <v-btn
+        v-for="(i, index) in daanList"
+        :key="index"
+        v-show="i.isShow"
+        @click="touchAnswer(index)"
+        rounded="lg"
+        size="x-large"
+        block
+        color="#161823"
+        style="margin-top: 1rem"
+        >{{ i.daan }}</v-btn
+      >
     </div>
   </v-container>
 </template>
@@ -73,8 +113,7 @@ const daanList = ref([
   { daan: '久旱逢甘雨', isShow: true },
   { daan: '白句方从万玉妃', isShow: true },
   { daan: '时雨真成大有年', isShow: true },
-  { daan: '月午江空桂花落', isShow: true },
-
+  { daan: '月午江空桂花落', isShow: true }
 ])
 const answer: any = ref('')
 const chatLists: any = ref([])
@@ -141,6 +180,16 @@ const getRandomElement = (array: Array<string>): string => {
   return array[round.value - 1]
 }
 
+const shuffleArray = (array): any => {
+  for (let i = array.length - 1; i > 0; i--) {
+    // 生成一个0到i的随机索引
+    const j = Math.floor(Math.random() * (i + 1))
+    // 交换当前元素与随机选择的元素
+    ;[array[i], array[j]] = [array[j], array[i]]
+  }
+  return array
+}
+
 //  初始诗句初始化
 startPoem.value = preSentence = getRandomElement(prePorm)
 
@@ -184,6 +233,7 @@ onMounted(() => {
   //  添加监听函数
   window.addEventListener('resize', resizeDom)
   resizeDom()
+  daanList.value = shuffleArray(daanList.value)
 })
 
 const touchAnswer = (index: any): void => {
@@ -222,13 +272,13 @@ const compareSentence = (str1: string, str2: string): boolean => {
 
 //  启动倒计时现在设定300秒
 const startProgress = (): void => {
-  console.log(round.value)
+  console.log('111', round.value)
   if (timer === null) {
     if (round.value === 1) {
       console.log('enter setinterval')
       timer = setInterval(() => {
         progress.value = progress.value + 1
-        console.log(progress.value)
+        console.log('222', progress.value)
       }, 3000)
     }
   }
@@ -339,7 +389,7 @@ const robotChat = (value: string): void => {
         startPoem.value = preSentence = getRandomElement(prePorm)
         chatStartRef.value.handelClick(startPoem.value)
         chatLists.value = []
-      }, 3000);
+      }, 3000)
     })
     .catch((err: any): void => {
       if (err.message === '无诗词') {

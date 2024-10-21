@@ -1,19 +1,34 @@
 <template>
   <v-container>
     <v-dialog v-model="loginDialogVisible" max-width="500" persistent>
-      <v-card
-        prepend-icon="mdi-account-circle"
-        text=""
-        title="用户登录"
-        class="login-card"
-        :image="resolvePath('/images/zhongLou.jpg')"
-      >
+      <v-card prepend-icon="mdi-account-circle" text="" title="用户登录" class="login-card"
+        :image="resolvePath('/images/zhongLou.jpg')">
         <v-card-text>
-          <v-row dense>
+          <v-row align="center" justify="center">
+            <v-col cols="auto">
+              <v-btn density="comfortable" color="success" @click="onClick('student')">学生</v-btn>
+            </v-col>
+
+            <v-col cols="auto">
+              <v-btn density="comfortable" color="success" @click="onClick('teacher')">教师</v-btn>
+            </v-col>
+          </v-row>
+          <v-row dense v-show="person === '1'">
             <v-col cols="12">
-              <v-text-field label="姓名*" required v-model="user.name"></v-text-field>
+              <v-text-field label="学生姓名*" required v-model="user.name"></v-text-field>
             </v-col>
             <v-col cols="12">
+              <v-text-field label="学生学号*" required v-model="user.id"></v-text-field>
+            </v-col>
+            <v-col cols="12">
+              <v-select label="学院*" :items="collegeItems" v-model="user.college"></v-select>
+            </v-col>
+          </v-row>
+          <v-row dense v-show="person === '2'">
+            <v-col cols="12">
+              <v-text-field label="教师姓名*" required v-model="user.name"></v-text-field>
+            </v-col>
+            <v-col cols="12" v-show="false">
               <v-text-field label="学号*" required v-model="user.id"></v-text-field>
             </v-col>
             <v-col cols="12">
@@ -23,9 +38,9 @@
         </v-card-text>
 
         <v-divider color="#0eb840"></v-divider>
-
+        <!-- color="#44cef6" -->
         <v-card-actions>
-          <v-btn color="#44cef6" text="保存" variant="outlined" @click="saveUserInfo"></v-btn>
+          <v-btn  color="blue-darken-4" text="保存" variant="flat" @click="saveUserInfo"></v-btn>
 
           <v-btn color="#75878a" text="取消" variant="plain" @click="closeDialog"></v-btn>
 
@@ -46,6 +61,7 @@ import { resolvePath } from '@/renderer/utils'
 const { setloginDialogVisible, setName, setId, setCollege } = useCounterStore()
 const { loginDialogVisible } = storeToRefs(useCounterStore())
 const router = useRouter()
+const person = ref("1")
 const collegeItems = [
   '语言文化学院',
   '机械工程学院',
@@ -84,7 +100,11 @@ const closeDialog = (): void => {
 
 const saveUserInfo = (): void => {
   setName(user.name)
-  setId(user.id)
+  if(person.value === '2'){
+    setId('00000000')
+  }else{
+    setId(user.id)
+  }
   setCollege(user.college)
   setloginDialogVisible()
   updataUserInfo()
@@ -95,6 +115,14 @@ const updataUserInfo = (): void => {
     .then((res: string) => {
       console.log('add item', res)
     })
+}
+
+const onClick = (value: string) => {
+  if(value === 'student'){
+    person.value = "1"
+  }else if(value === 'teacher'){
+    person.value = "2"
+  }
 }
 
 const getAllUsers = (): void => {
