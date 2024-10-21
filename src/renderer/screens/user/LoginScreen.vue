@@ -10,7 +10,7 @@
             </v-col>
 
             <v-col cols="auto">
-              <v-btn density="comfortable" color="success" @click="onClick('teacher')">教师</v-btn>
+              <v-btn density="comfortable" color="success" @click="onClick('teacher')">教职工</v-btn>
             </v-col>
           </v-row>
           <v-row dense v-show="person === '1'">
@@ -26,13 +26,13 @@
           </v-row>
           <v-row dense v-show="person === '2'">
             <v-col cols="12">
-              <v-text-field label="教师姓名*" required v-model="user.name"></v-text-field>
+              <v-text-field label="教职工姓名*" required v-model="user.name"></v-text-field>
             </v-col>
             <v-col cols="12" v-show="false">
               <v-text-field label="学号*" required v-model="user.id"></v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-select label="学院*" :items="collegeItems" v-model="user.college"></v-select>
+              <v-select label="学院*" :items="collegeItems2" v-model="user.college"></v-select>
             </v-col>
           </v-row>
         </v-card-text>
@@ -63,6 +63,25 @@ const { loginDialogVisible } = storeToRefs(useCounterStore())
 const router = useRouter()
 const person = ref("1")
 const collegeItems = [
+  '语言文化学院',
+  '机械工程学院',
+  '计算机科学与工程学院',
+  '材料科学与工程学院',
+  '管理学院',
+  '电气工程与自动化学院',
+  '集成电路科学与工程学院',
+  '化学化工学院',
+  '理学院',
+  '马克思主义学院',
+  '环境科学与安全工程学院',
+  '艺术学院',
+  '海运学院',
+  '聋人工学院',
+  '社会发展学院',
+  '华信软件学院'
+]
+const collegeItems2 = [
+  '机关',
   '语言文化学院',
   '机械工程学院',
   '计算机科学与工程学院',
