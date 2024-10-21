@@ -1,5 +1,5 @@
 export default class Utils {
-  private static isDev: string = 'dev'
+  private static isDev: string = 'prod'
   //  dev || prod
   constructor() {}
 
